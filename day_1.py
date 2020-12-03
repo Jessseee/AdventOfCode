@@ -5,9 +5,12 @@ import numpy as np
 file_name = "input/input_day_1.txt"
 
 
-# First and second half
-# Function that returns the product of a set of items that sum up to a given result.
 def find_sum_with_result(nr, result):
+    """
+    :param nr: number of items that should sum to result
+    :param result: The result of the sum of items we are looking for
+    :return: The product of a set of items that sum up to the given result.
+    """
     with open(file_name) as f:
         lines = f.readlines()
         integers = [int(i) for i in lines]

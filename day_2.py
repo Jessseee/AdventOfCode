@@ -6,6 +6,9 @@ file_name = "input/input_day_2.txt"
 
 # Part one
 def sled_rental_pswd_policy_checker():
+    """
+    Print the number of valid passwords according to the sled rental password policy
+    """
     nr_of_valid_passwords = 0
     with open(file_name) as f:
         for line in f.readlines():
@@ -17,6 +20,9 @@ def sled_rental_pswd_policy_checker():
 
 # Part two
 def toboggan_corp_pswd_policy_checker():
+    """
+        Print the number of valid passwords according to Toboggan Corporation's password policy
+    """
     nr_of_valid_passwords = 0
     with open(file_name) as f:
         for line in f.readlines():
@@ -28,10 +34,14 @@ def toboggan_corp_pswd_policy_checker():
 
 
 def dissect_line(line):
+    """
+    :param str line: The line to be dissected
+    :returns: The dissected policy and password
+    """
     policy, password = line.split(':')
-    min_max_char, char = policy.split(' ')
-    first_char, second_char = min_max_char.split('-')
-    return int(first_char), int(second_char), char, password
+    limits, char = policy.split(' ')
+    first_limit, second_limit = limits.split('-')
+    return int(first_limit), int(second_limit), chr(char), str(password)
 
 
 if __name__ == '__main__':

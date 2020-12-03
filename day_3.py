@@ -8,12 +8,11 @@ file_name = "input/input_day_3.txt"
 
 def check_trajectory_for_trees(right, down, print_trajectory=False):
     """
-    Parameters:
-        right (int): Number of steps to the right
-        down (int): Number of steps down
-        print_trajectory (bool): Print the trajectory to console
-    Returns:
-        int: Number of trees encountered on given trajectory
+    :param int right: Number of steps to the right
+    :param int down: Number of steps down
+
+    :param bool print_trajectory: Print the trajectory to console
+    :return: Number of trees encountered on the given trajectory
     """
 
     x = 0
