@@ -1,4 +1,7 @@
 # Some small functions to use in the different solutions
+import sys
+import os
+
 
 def color_text(text, color_code):
     """
@@ -8,3 +11,8 @@ def color_text(text, color_code):
     Color text for display in console using ANSI escape sequence
     """
     return f'\033[{color_code}m{text}\033[0m'
+
+
+def import_input():
+    day = os.path.basename(sys.argv[0]).split('.')[0]
+    return open("input/input_" + day + ".txt")
