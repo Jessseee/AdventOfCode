@@ -3,21 +3,6 @@
 import operator
 from helpers import *
 
-ops = {
-    '+': operator.add,
-    '-': operator.sub
-}
-
-
-def apply_operation(oprnd_1, opr, oprnd_2):
-    """
-    :param oprnd_1: The first operand
-    :param opr: The operator
-    :param oprnd_2: The second operand
-    :return: The result of the operation
-    """
-    return ops.get(opr)(int(oprnd_1), int(oprnd_2))
-
 
 def rewrite_instruction(index, instruction, new_instruction, acc, visited):
     """
@@ -54,7 +39,6 @@ def execute_instruction(index=0, acc=0, visited=[], changed=False):
         return False
 
     instruction = instructions[index].split(' ')
-    opr, val = instruction[1][:1], instruction[1][1:]
 
     if changed:
         print(color_text(f'\t{index}:   \t{instruction}   \t{acc}', 37))
@@ -64,7 +48,7 @@ def execute_instruction(index=0, acc=0, visited=[], changed=False):
     if instruction[0] == 'acc':
         return execute_instruction(
             index + 1,
-            apply_operation(acc, opr, val),
+            acc + int(instruction[1]),
             visited,
             changed
         )
@@ -81,7 +65,7 @@ def execute_instruction(index=0, acc=0, visited=[], changed=False):
         if not changed and rewrite_instruction(index, instruction, 'nop', acc, visited):
             return
         return execute_instruction(
-            apply_operation(index, opr, val),
+            index + int(instruction[1]),
             acc,
             visited,
             changed
