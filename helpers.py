@@ -16,3 +16,7 @@ def color_text(text, color_code):
 def import_input():
     day = os.path.basename(sys.argv[0]).split('.')[0]
     return open("input/input_" + day + ".txt")
+
+
+def replace_chr(i, char, string):
+    return string[:i] + char + string[i + 1:]
