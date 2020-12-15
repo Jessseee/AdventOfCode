@@ -1,8 +1,7 @@
 # Day 9 Advent of Code
-# cracking the XMAS cypher
+# Cracking the XMAS cypher
 from helpers import *
 import itertools as itr
-preamble_len = 25
 
 
 def compare_to_preamble(index):
@@ -18,12 +17,15 @@ def find_weakness(invalid_number):
         contiguous_set = []
         for other in sequence[number:]:
             contiguous_set.append(other)
-            if sum(contiguous_set) == invalid_number:
-                weakness = min(contiguous_set) + max(contiguous_set)
-                return weakness
+            sum_set = sum(contiguous_set)
+            if sum_set > invalid_number:
+                break
+            elif sum_set == invalid_number:
+                return min(contiguous_set) + max(contiguous_set)
 
 
 if __name__ == '__main__':
+    preamble_len = 25
     sequence = [int(i) for i in import_input().read().split('\n')]
     invalid_nr = compare_to_preamble(preamble_len)
     weak_nr = find_weakness(invalid_nr)
