@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 numpy = "==1.19.3"
+more-itertools = "*"
+matplotlib = "*"
 
 [dev-packages]
 
