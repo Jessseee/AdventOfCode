@@ -20,3 +20,7 @@ def import_input():
 
 def replace_chr(i, char, string):
     return string[:i] + char + string[i + 1:]
+
+
+def replace_chrs(span, char, string):
+    return string[:span[0]] + char + string[span[1]:]
