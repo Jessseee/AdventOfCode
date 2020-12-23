@@ -13,9 +13,12 @@ def color_text(text, color_code):
     return f'\033[{color_code}m{text}\033[0m'
 
 
-def import_input():
+def import_input(example=False):
     day = os.path.basename(sys.argv[0]).split('.')[0]
-    return open("input/input_" + day + ".txt")
+    if example:
+        return open("input/example_input_" + day + ".txt")
+    else:
+        return open("input/input_" + day + ".txt")
 
 
 def replace_chr(i, char, string):
