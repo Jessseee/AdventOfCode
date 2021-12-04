@@ -8,6 +8,8 @@ more-itertools = "*"
 matplotlib = "*"
 numpy = "*"
 requests = "*"
+plyer = "*"
+schedule = "*"
 
 [dev-packages]
 

@@ -21,4 +21,4 @@ if __name__ == '__main__':
 
     print(f'\nAccording to the {color_text("second", 33)} interpretation of the instructions')
     print(f'The end position of the submarine will be: {color_text(pos, 32)}')
-    print(f'The product of these values is: {color_text(pos[0] * pos[1], 32)}')
+    print(f'The product of these values is: {color_text(pos[1] * pos[2], 32)}')

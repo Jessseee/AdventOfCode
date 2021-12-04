@@ -1,5 +1,5 @@
-# Day XX of Advent of Code 2021
-# -----------------------------
+# Day 3 of Advent of Code 2021
+# Binary Diagnostic
 from helpers import *
 from collections import Counter
 
