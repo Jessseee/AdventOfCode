@@ -9,7 +9,7 @@ from helpers import *
 
 
 parser = argparse.ArgumentParser(description='Download input and initialize solution files for AdventOfCode puzzles.')
-parser.add_argument('--watch', type=bool)
+parser.add_argument('--watch', default=True, action=argparse.BooleanOptionalAction)
 args = parser.parse_args()
 
 # Get current time in UTC
@@ -17,6 +17,7 @@ now = datetime.utcnow()
 
 # Check if it is after midnight EST/UTC-5 (=05:00 UTC)
 if args.watch:
+    print('Waiting for puzzle to release:')
     while now.hour < 5:
         sleep(1)  # Poll every 15 seconds
         now = datetime.utcnow()
@@ -68,4 +69,16 @@ while not done:
     except Exception as e:
         print("        Non handled error while requesting input from server. " + str(e))
         done = True
-print(color_text(f'Successfully initialized AdventOfCode working directories for day {now.day} of this years challenge!', 32))
+
+print(f''' \033[31m
+            .-----_
+           /  /  /\\|
+         / /  |  \\ \033[33m*\033[31m
+        /  /    \\ \\
+       / /  /   \\  \\\033[38m
+     ./~~~~~~~~~~~~~\.
+    ( .", ^. ~".  '.~ )
+     '~~~~~~~~~~~~~~~'
+
+\033[32mSuccessfully initialized AdventOfCode {now.year} day {now.day} solution file!
+''')
