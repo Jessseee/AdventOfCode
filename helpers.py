@@ -27,3 +27,14 @@ def replace_chr(i, char, string):
 
 def replace_chrs(span, char, string):
     return string[:span[0]] + char + string[span[1]:]
+
+
+def print_2d_array(array, el_length):
+    for row in array:
+        for el in row:
+            if not el:
+                print(' '*(el_length-1) + 'X', end=' ')
+            else:
+                print(str(el).zfill(el_length), end=' ')
+        print()
+

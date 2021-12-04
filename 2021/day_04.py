@@ -11,7 +11,8 @@ def play(boards, num):
             if num in row:
                 row[row.index(num)] = False
         if any([not any(row) for row in board]) or any([not any(col) for col in list(zip(*board))]):
-            print(sum(sum(board, [])) * num)
+            print_2d_array(board, 2)
+            print(f'Board score: {sum(sum(board, [])) * num}')
             completed.append(board)
     for board in completed:
         boards.remove(board)
