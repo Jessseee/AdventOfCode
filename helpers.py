@@ -61,4 +61,3 @@ def print_2d_array(array, el_length):
             else:
                 print(str(el).zfill(el_length), end=' ')
         print()
-
