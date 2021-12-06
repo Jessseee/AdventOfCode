@@ -3,7 +3,7 @@ import numpy as np
 
 
 if __name__ == '__main__':
-    inputs = [(dir, int(num)) for dir, num in [line.split(' ') for line in import_input().read().split('\n')]]
+    inputs = [(dir, int(num)) for dir, num in [line.split(' ') for line in import_input('\n')]]
 
     dirs = {'forward': [1, 0], 'up': [0, -1], 'down': [0, 1]}
     pos = np.array([0, 0])

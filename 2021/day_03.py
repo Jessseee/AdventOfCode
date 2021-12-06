@@ -33,7 +33,6 @@ def find_rating(inputs, crit):
 
 
 if __name__ == '__main__':
-    inputs = import_input().read().split('\n')
+    inputs = import_input('\n')
     print(find_power_consumption(inputs))
-    ratings = int(find_rating(inputs, 0), 2) * int(find_rating(inputs, -1), 2)
-    print(ratings)
+    print(int(find_rating(inputs, 0), 2) * int(find_rating(inputs, -1), 2))

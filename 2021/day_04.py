@@ -20,7 +20,7 @@ def play(boards, num):
 
 
 if __name__ == '__main__':
-    inputs = import_input().read().split('\n\n')
+    inputs = import_input('\n\n')
     numbers = [int(num) for num in inputs[0].split(',')]
     boards = [[[int(num) for num in re.findall('.. ?', line)] for line in board.split('\n')] for board in inputs[1:]]
     for num in numbers:

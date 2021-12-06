@@ -13,17 +13,22 @@ def color_text(text, color_code):
     return f'\033[{color_code}m{text}\033[0m'
 
 
-def import_input(example=False):
+def import_input(split=None, type=None, **kwargs):
     """
     :param bool example: Should import example input instead
-    :return: Stream of input file
+    :param str split: string to split input on
+    :param Type type: type to cast input
+    :return: inputs from input file
     Import input for day of puzzle
     """
     day = os.path.basename(sys.argv[0]).split('.')[0]
-    if example:
-        return open("input/example_input_" + day + ".txt")
-    else:
-        return open("input/input_" + day + ".txt")
+    path = "input/example_input_" + day + ".txt" if kwargs.get('example') else "input/input_" + day + ".txt"
+    inputs = open(path)
+    if split is not None:
+        inputs = inputs.read().split(split)
+    if type is not None:
+        inputs = list(map(type, inputs))
+    return inputs
 
 
 def replace_chr(i, char, string):
