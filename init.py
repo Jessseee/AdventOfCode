@@ -89,19 +89,20 @@ if __name__ == '__main__':
     # Initialise today
     else:
         # Get current time in UTC
-        now = datetime.utcnow()
+        init_time = datetime.utcnow()
+        release_time = datetime.utcnow().replace(hour=5, minute=0, second=0)
 
         # Check if it is after midnight EST/UTC-5 (=05:00 UTC)
-        if args.watch:
-            print('Waiting for puzzle to release:')
-            while now.hour < 5:
+        if init_time.hour > 5 and not args.watch:
+            init_day(str(init_time.year), str(init_time.day))
+        elif args.watch:
+            while init_time.hour < 5:
                 sleep(1)
-                now = datetime.utcnow()
-                print('\r'+str(now.time()).split('.')[0], end='')
-        else:
-            if now.hour < 5:
-                print(color_text('There is no new puzzles yet! you have to wait until midnight EST/UTC-5.', 33))
-                exit()
-        print('\n')
+                until = release_time - datetime.utcnow()
+                print(f"\rWaiting for day {init_time.day} puzzle to release: {str(until).split('.')[0]}", end='')
+            print('\n')
 
-        init_day(str(now.year), str(now.day))
+            init_day(str(init_time.year), str(init_time.day))
+        else:
+            print(color_text('There is no new puzzles yet! you have to wait until midnight EST/UTC-5.', 33))
+            exit()
