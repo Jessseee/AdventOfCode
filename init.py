@@ -93,10 +93,10 @@ if __name__ == '__main__':
         release_time = datetime.utcnow().replace(hour=5, minute=0, second=0)
 
         # Check if it is after midnight EST/UTC-5 (=05:00 UTC)
-        if init_time.hour > 5 and not args.watch:
+        if init_time.hour > 5:
             init_day(str(init_time.year), str(init_time.day))
         elif args.watch:
-            while init_time.hour < 5:
+            while datetime.utcnow().hour < 5:
                 sleep(1)
                 until = release_time - datetime.utcnow()
                 print(f"\rWaiting for day {init_time.day} puzzle to release: {str(until).split('.')[0]}", end='')
