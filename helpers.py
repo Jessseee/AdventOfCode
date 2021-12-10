@@ -10,7 +10,7 @@ def color_text(text, color_code):
     :return: ANSI escape sequence
     Color text for display in console using ANSI escape sequence
     """
-    return f'\033[{color_code}m{text}\033[0m'
+    return f'\033[{color_code}m{str(text)}\033[0m'
 
 
 def import_input(split=None, type=None, **kwargs):
