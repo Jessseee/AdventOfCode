@@ -78,13 +78,21 @@ if __name__ == '__main__':
 
     # Initialise specific date
     if args.date is not None:
-        year, day = args.date[:4], args.date[4:]
-        if int(year) < 2015:
-            print('There was no AdventOfCode before 2015 :(')
-        elif not 1 <= int(day) <= 25:
-            print('Advent of code runs from 1 Dec until 25 Dec.')
+        # Initialise entire year
+        if len(args.date) == 4:
+            if int(args.date) < 2015:
+                print('There was no AdventOfCode before 2015 :(')
+            for day in range(1, 26):
+                init_day(args.date, str(day))
+        # Initialize specific day from year
         else:
-            init_day(year, day)
+            year, day = args.date[:4], args.date[4:]
+            if int(year) < 2015:
+                print('There was no AdventOfCode before 2015 :(')
+            elif not 1 <= int(day) <= 25:
+                print('Advent of code runs from 1 Dec until 25 Dec.')
+            else:
+                init_day(year, day)
 
     # Initialise today
     else:
