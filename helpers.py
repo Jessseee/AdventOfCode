@@ -1,6 +1,7 @@
 # Some small functions to use in the different solutions
 import sys
 import os
+import re
 
 
 def color_text(text, color_code):
@@ -21,8 +22,8 @@ def import_input(split=None, type=None, **kwargs):
     :return: inputs from input file
     Import input for day of puzzle
     """
-    day = os.path.basename(sys.argv[0]).split('.')[0]
-    path = "input/example_input_" + day + ".txt" if kwargs.get('example') else "input/input_" + day + ".txt"
+    day = re.findall('[0-9]+', os.path.basename(sys.argv[0]))[0]
+    path = "input/example_input_day_" + day + ".txt" if kwargs.get('example') else "input/input_day_" + day + ".txt"
     inputs = open(path)
     if split is not None:
         inputs = inputs.read().split(split)
