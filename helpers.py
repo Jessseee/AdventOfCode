@@ -54,7 +54,7 @@ def replace_chrs(span, char, string):
     return string[:span[0]] + char + string[span[1]:]
 
 
-def print_2d_array(array, el_length):
+def print_2d_array(array, el_length=1):
     """
     :param list[list] array: 2d array to print
     :param int el_length: the length of each element in the array
@@ -63,7 +63,7 @@ def print_2d_array(array, el_length):
     for row in array:
         for el in row:
             if not el:
-                print(' '*(el_length-1) + 'X', end=' ')
+                print(' '*(el_length-1) + '.', end=' ')
             else:
                 print(str(el).zfill(el_length), end=' ')
         print()
