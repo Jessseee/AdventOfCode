@@ -39,11 +39,14 @@ import numpy as np
 class Packet:
     def __init__(self, bits):
         self.bits = bits
-        self.consumed = 0
-        self.value = 0
 
-        self.version = self.consume(3, True)
-        self.type = self.consume(3, True)
+        self.pointer = 0
+        self.value = 0
+        self.sub_packets = []
+
+        self.version = self.get_bits(3, True)
+        self.type = self.get_bits(3, True)
+        self.type_id = None if self.type == 4 else self.get_bits(1)
 
         global operators
         self.operator = operators[self.type]
@@ -51,63 +54,73 @@ class Packet:
         global total_version
         total_version += self.version
 
+        self.value = self.literal_from_binary() if self.type == 4 else self.operator_from_binary()
+
+    def print(self, depth=0):
+        if self.type == 4:
+            print('\t' * depth + f'<num v={self.value}/>')
+        else:
+            print('\t' * depth + f'<{self.operator.__name__} t={self.type_id}')
+            for packet in self.sub_packets:
+                packet.print(depth + 1)
+            print('\t' * depth + f"</{self.operator.__name__} v={self.value}>>")
+
     # Pop a number of bits off of the packet's binary
-    def consume(self, length, to_int=False):
-        bits = self.bits[:length]
-        self.bits = self.bits[length:]
-        self.consumed += length
+    def get_bits(self, length, to_int=False):
+        bits = self.bits[self.pointer:self.pointer+length]
+        self.pointer += length
         return int(bits, 2) if to_int else bits
 
-    def read(self, indent=0):
-        # Packets with type 4 are literals
-        if self.type == 4:
-            number = ''
-            while True:
-                start = self.consume(1)
-                number += self.consume(4)
-                if start == '0':
-                    self.value = int(number, 2)
-                    break
-            print('\t'*indent + f"<Packet t={self.type}, o=literal, v={self.value}, b={number}>")
+    def literal_from_binary(self):
+        number = ''
+        while True:
+            start = self.get_bits(1)
+            number += self.get_bits(4)
+            if start == '0':
+                value = int(number, 2)
+                break
+        self.bits = self.bits[:self.pointer]
+        return value
 
-        # Any other packets are operators
+    def operator_from_binary(self):
+        values = []
+
+        # If length type ID is 0 then the next 15 bits are the length of the sub-packet
+        if self.type_id == '0':
+            sub_packet_length = self.get_bits(15, True)
+            while sub_packet_length > 0:
+                sub_packet = Packet(self.bits[self.pointer:self.pointer+sub_packet_length])
+                values.append(sub_packet.value)
+                self.sub_packets.append(sub_packet)
+                self.pointer += sub_packet.pointer
+                sub_packet_length -= sub_packet.pointer
+
+        # If length type ID is 1 then the next 11 bits are the number of sub-packets
+        elif self.type_id == '1':
+            nr_sub_packets = self.get_bits(11, True)
+            for _ in range(nr_sub_packets):
+                sub_packet = Packet(self.bits[self.pointer:])
+                values.append(sub_packet.value)
+                self.sub_packets.append(sub_packet)
+                self.pointer += sub_packet.pointer
+
+        # apparently np.prod can have an integer overflow :(
+        if self.operator == np.prod:
+            value = self.operator(values, dtype=np.int64)
+        elif self.type < 4:
+            value = self.operator(values)
         else:
-            values = []
-            print('\t'*indent + f"<Packet t={self.type}, o={self.operator.__name__}>")
+            value = self.operator(*values)
 
-            # If length type ID is 0 then the next 15 bits are the length of the sub-packet
-            if self.consume(1) == '0':
-                sub_packet_length = self.consume(15, True)
-                while sub_packet_length > 0:
-                    sub_packet = Packet(self.bits[:sub_packet_length])
-                    values.append(sub_packet.read(indent+1))
-                    self.consume(sub_packet.consumed)
-                    sub_packet_length -= sub_packet.consumed
-
-            # If length type ID is 1 then the next 11 bits are the number of sub-packets
-            else:
-                nr_sub_packets = self.consume(11, True)
-                for i in range(nr_sub_packets):
-                    sub_packet = Packet(self.bits)
-                    values.append(sub_packet.read(indent+1))
-                    self.consume(sub_packet.consumed)
-
-            # apparently np.prod can have an integer overflow :(
-            if self.operator == np.prod:
-                self.operator(values, dtype=np.int64)
-            elif self.type < 4:
-                self.value = self.operator(values)
-            else:
-                self.operator(*values)
-            print('\t'*indent + f"</Packet t={self.type}, o={self.operator.__name__}, v={self.value}>")
-        return self.value
+        self.bits = self.bits[:self.pointer]
+        return value
 
 
 if __name__ == '__main__':
     bits = ''.join(['{0:04b}'.format(int(char, 16)) for char in import_input(example=False).read()])
     operators = [np.sum, np.prod, np.min, np.max, int, np.greater, np.less, np.equal]
     total_version = 0
-    packet = Packet(bits)
-    result = packet.read()
-    print('\nresult:', result)
+    outer_packet = Packet(bits)
+    outer_packet.print()
+    print('\nresult:', outer_packet.value)
     print('total version:', total_version)
