@@ -56,7 +56,7 @@ def replace_chrs(span, char, string):
 
 def print_2d_array(array, el_length=1):
     """
-    :param list[list] array: 2d array to print
+    :param list[list]|ndarray array: 2d array to print
     :param int el_length: the length of each element in the array
     Nicely print a 2d array
     """
