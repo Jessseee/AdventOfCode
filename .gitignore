@@ -1,4 +1,4 @@
 .idea
 __pycache__
 input
-config.py
+config.yaml

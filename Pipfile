@@ -10,6 +10,7 @@ numpy = "*"
 requests = "*"
 plyer = "*"
 schedule = "*"
+pyyaml = "*"
 
 [dev-packages]
 
