@@ -45,7 +45,6 @@ def download_input(year, day):
 
 
 def init_day(year, day):
-    # Check if directory and file already exists
     filename = f'{year}/day_{day.zfill(2)}.py'
 
     if not os.path.exists(year):
@@ -76,7 +75,7 @@ if __name__ == '__main__':
     parser.add_argument('--date', default=None, nargs='?')
     args = parser.parse_args()
 
-    # Initialise specific date
+    # Initialise previous date
     if args.date is not None:
         # Initialise entire year
         if len(args.date) == 4:
@@ -94,11 +93,16 @@ if __name__ == '__main__':
             else:
                 init_day(year, day)
 
-    # Initialise today
+    # Initialise current day
     else:
         # Get current time in UTC
         init_time = datetime.utcnow()
         release_time = datetime.utcnow().replace(hour=5, minute=0, second=0)
+
+        # Check if it is December yet
+        if init_time.month != 12:
+            print(color_text('It is not December! If you want to initiate a previous year please provide a date.', 33))
+            exit()
 
         # Check if it is after midnight EST/UTC-5 (=05:00 UTC)
         if init_time.hour > 5:

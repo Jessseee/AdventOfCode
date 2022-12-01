@@ -1,4 +1,5 @@
 # Some small functions to use in the different solutions
+import matplotlib.pyplot as plt
 import sys
 import os
 import re
@@ -26,7 +27,10 @@ def import_input(split=None, type=None, **kwargs):
     path = "input/example_input_day_" + day + ".txt" if kwargs.get('example') else "input/input_day_" + day + ".txt"
     inputs = open(path)
     if split is not None:
-        inputs = inputs.read().split(split)
+        if split == '':
+            inputs = [char for char in inputs.read()]
+        else:
+            inputs = inputs.read().split(split)
     if type is not None:
         inputs = list(map(type, inputs))
     return inputs
@@ -67,3 +71,14 @@ def print_2d_array(array, el_length=1):
             else:
                 print(str(el).zfill(el_length), end=' ')
         print()
+
+
+def plot_3d_array(array):
+    """
+    :param array: 3d array to plot
+    Plot a 3d array using pyplot
+    """
+    fig = plt.figure()
+    ax = fig.add_subplot(projection='3d')
+    ax.scatter(*zip(*array))
+    plt.show()
