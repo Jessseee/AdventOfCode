@@ -1,5 +1,6 @@
 # some utility function for displaying data.
 import matplotlib.pyplot as plt
+from enum import Enum
 
 
 def print_2d_array(array, el_length=1):
@@ -30,12 +31,18 @@ def plot_3d_array(array):
     plt.show()
 
 
-def color_text(text, color_code):
+Color = Enum('Color', ['BLACK', 'RED', 'GREEN', 'ORANGE', 'BLUE', 'PURPLE', 'CYAN', 'GREY'], start=30)
+Highlight = Enum('Highlight', ['BLACK', 'RED', 'GREEN', 'ORANGE', 'BLUE', 'PURPLE', 'CYAN', 'GREY'], start=30)
+Effect = Enum('Effect', zip(['BOLD', 'ITALIC', 'STRIKE', 'UNDERLINE'], [1, 3, 9, 21]))
+
+
+def color_text(text, effect):
     """
     Color text for display in console using ANSI escape sequence.
 
     :param Any text: The text to be colored.
-    :param int color_code: The ANSI color code.
+    :param int effect: The ANSI code or related Enum value.
     :return: ANSI escape sequence.
     """
-    return f'\033[{color_code}m{str(text)}\033[0m'
+    if isinstance(effect, (Color, Highlight, Effect)): effect = effect.value
+    return f'\033[{effect}m{str(text)}\033[0m'

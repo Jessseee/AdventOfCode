@@ -39,7 +39,7 @@ def download_input(year: str, day: str, config: Config):
     error_count = 0
     while not done:
         try:
-            print("Getting input:")
+            print("Getting input...")
             with requests.get(
                     url=f'{config.URL}/{year}/day/{day}/input',
                     cookies={"session": config.SESSION_ID},
@@ -48,6 +48,8 @@ def download_input(year: str, day: str, config: Config):
                     data = response.text
                     with open(f'{year}/input/input_day_{day.zfill(2)}.txt', "w+") as f:
                         f.write(data.rstrip("\n"))
+                    with open(f'{year}/input/example_input_day_{day.zfill(2)}.txt', "w+") as f:
+                        pass
                 else:
                     print(f"Server:\t"+color_text(f"Error {response.status_code}", 31))
             done = True
@@ -56,7 +58,8 @@ def download_input(year: str, day: str, config: Config):
                 print(f"Server:\tTried {error_count} time. Giving up!")
                 done = True
             elif error_count == 0:
-                print("Server:\t"+color_text(f"Error while requesting input. Request probably timed out. Trying again. (Max {config.MAX_RECONNECT_ATTEMPT} times)", 33))
+                print("Server:\t"+color_text(f"Error while requesting input. Request probably timed out. Trying again. "
+                                             f"(Max {config.MAX_RECONNECT_ATTEMPT} times)", 33))
             else:
                 print(f"Server:\tTrying again. ({error_count})")
             error_count += 1
@@ -90,9 +93,6 @@ def init_day(year: str, day: str, config: Config):
     else:
         shutil.copy('day_template.py', filename)
 
-    with open('christmas.txt', 'r') as f:
-        for line in f:
-            print(line, end='')
     print(color_text(f'Let\'s get started on day {day} of AdventofCode {year}!', 32))
 
 
@@ -109,6 +109,11 @@ if __name__ == '__main__':
 
     # Parse config file
     config = Config.parse(args.config)
+
+    # Print fun graphic
+    with open('christmas.txt', 'r') as f:
+        for line in f:
+            print(line, end='')
 
     # Initialise previous date
     if args.date is not None:
