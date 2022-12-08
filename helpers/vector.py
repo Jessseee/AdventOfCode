@@ -88,24 +88,34 @@ class Vector:
         return cls(*(constant for _ in range(nr_dims)))
 
 
+class Matrix(Vector):
+    """ Alias of the Vector class. """
+    def __init__(self, *dims: int | float) -> "Matrix":
+        super().__init__(*dims)
+
+
 class MetaVector2D(type):
-    DIRECTIONS = [(0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1), (-1, 0), (-1, 1)]
-    DIRECTION_NAMES = {
-        'north': 0, 'up': 0, 'north_east': 1, 'east': 2, 'right': 2, 'south_east': 3, 'south': 4,
-        'down': 4, 'south_west': 5, 'west': 6, 'left': 6, 'north_west': 7, 'center': 8
+    DIRECTIONS = {
+        'up': (0, 1), 'right': (1, 0), 'down': (0, -1), 'left': (-1, 0)
+    }
+    CARDINALS = {
+        'north': (0, 1), 'north_east': (1, 1), 'east': (1, 0), 'south_east': (1, -1),
+        'south': (0, -1), 'south_west': (-1, -1), 'west': (-1, 0), 'north_west': (-1, 1)
     }
 
     def __getattr__(cls, key):
-        index = cls.DIRECTION_NAMES.get(key)
+        index = cls.DIRECTIONS.get(key) or cls.CARDINALS.get(key)
         if index is not None:
-            return lambda: Vector2D(*cls.DIRECTIONS[index])
+            return lambda: Vector2D(*cls.ALL_DIRECTIONS[index])
         raise AttributeError(key)
 
+    def directions(cls) -> list["Vector2D"]:
+        """:returns: Four directions (up, right, down, left)"""
+        return [Vector2D(*direction) for direction in cls.DIRECTIONS.values()]
 
-class Matrix(Vector):
-    """ Alias of the Vector class. """
-    def __init__(self, *dims):
-        super().__init__(*dims)
+    def cardinals(cls):
+        """:returns: Eight direction (north, north east, east, south east, south, south west, west, north west)"""
+        return [Vector2D(*direction) for direction in cls.CARDINALS.values()]
 
 
 class Vector2D(Vector, metaclass=MetaVector2D):
@@ -116,15 +126,22 @@ class Vector2D(Vector, metaclass=MetaVector2D):
         self.x = self.dims[0]
         self.y = self.dims[1]
 
-    def rotate90(self, clockwise: bool = True):
+    def rotate90(self, clockwise: bool = True) -> "Vector2D":
         """
         Turn the Vector2D +/- 90 degrees around the Z axis.
 
         :param clockwise: Whether to turn clockwise. [True]
+        :returns: Rotated Vector2D
         """
         if clockwise: x, y = self.y, -self.x
         else: x, y = -self.y, self.x
         return Vector2D(x, y)
+
+
+class Matrix2D(Vector2D):
+    """ Alias of the Vector2D class. """
+    def __init__(self, x: int | float, y: int | float) -> "Matrix2D":
+        super().__init__(x, y)
 
 
 class Vector3D(Vector):
@@ -136,3 +153,9 @@ class Vector3D(Vector):
         self.x = self.dims[0]
         self.y = self.dims[1]
         self.z = self.dims[2]
+
+
+class Matrix3D(Vector3D):
+    """ Alias of the Vector3D class. """
+    def __init__(self, x: int | float, y: int | float, z: int | float) -> "Matrix3D":
+        super().__init__(x, y, z)

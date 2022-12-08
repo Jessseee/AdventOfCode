@@ -46,3 +46,7 @@ def color_text(text, effect):
     """
     if isinstance(effect, (Color, Highlight, Effect)): effect = effect.value
     return f'\033[{effect}m{str(text)}\033[0m'
+
+
+def result(text):
+    return color_text(text, Color.GREEN)
