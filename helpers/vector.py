@@ -104,9 +104,9 @@ class MetaVector2D(type):
     }
 
     def __getattr__(cls, key):
-        index = cls.DIRECTIONS.get(key) or cls.CARDINALS.get(key)
-        if index is not None:
-            return lambda: Vector2D(*cls.ALL_DIRECTIONS[index])
+        direction = cls.DIRECTIONS.get(key) or cls.CARDINALS.get(key)
+        if direction is not None:
+            return lambda: Vector2D(*direction)
         raise AttributeError(key)
 
     def directions(cls) -> list["Vector2D"]:

@@ -12,7 +12,7 @@ def print_2d_array(array, el_length=1):
     """
     for row in array:
         for el in row:
-            if not el:
+            if el is None:
                 print(' '*(el_length-1) + '.', end=' ')
             else:
                 print(str(el).zfill(el_length), end=' ')
