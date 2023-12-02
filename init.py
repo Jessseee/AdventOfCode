@@ -91,7 +91,10 @@ def init_day(year: str, day: str, config: Config):
     if os.path.exists(filename):
         print(color_text(f'Your solution file was already been created and can be found at ./{year}/', 33))
     else:
-        shutil.copy('day_template.py', filename)
+        with open('day_template.py', 'r') as file:
+            data = file.read().replace('<YEAR>', year).replace('<DAY>', day)
+        with open(filename, 'w') as file:
+            file.write(data)
 
     print(color_text(f'Let\'s get started on day {day} of AdventofCode {year}!', 32))
 

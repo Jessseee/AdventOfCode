@@ -1,5 +1,8 @@
 # Day <DAY> of Advent of Code <YEAR>
 # <PUZZLE TITLE>
+
+# <PUZZLE DESCRIPTION>
+
 from helpers import *
 
 
