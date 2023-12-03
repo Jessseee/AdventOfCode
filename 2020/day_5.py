@@ -1,6 +1,6 @@
 # Day 5 Advent of Code
 # Finding my plane seat
-from helpers import color_text
+from aoc.helpers import color_text
 
 file_name = "input/input_day_5.txt"
 plane_rows = 128
@@ -14,7 +14,7 @@ def check_boarding_passes():
     boarding_passes = {}
     with open(file_name) as f:
         for boarding_pass in f.readlines():
-            boarding_pass = boarding_pass.rstrip('\n')  # strip off newline character
+            boarding_pass = boarding_pass.rstrip("\n")  # strip off newline character
             seat_id = decode_boarding_pass(boarding_pass)
             boarding_passes[seat_id] = boarding_pass
     f.close()
@@ -34,13 +34,13 @@ def decode_boarding_pass(boarding_pass):
     for char in boarding_pass:
         current_range_row = max_row - min_row + 1
         current_range_column = max_column - min_column + 1
-        if char == 'F':
+        if char == "F":
             max_row -= current_range_row // 2
-        elif char == 'B':
+        elif char == "B":
             min_row += current_range_row // 2
-        elif char == 'L':
+        elif char == "L":
             max_column -= current_range_column // 2
-        elif char == 'R':
+        elif char == "R":
             min_column += current_range_column // 2
     row = min_row
     column = min_column
@@ -62,8 +62,8 @@ def find_missing_seat_ids(boarding_passes):
     return missing_seat_ids
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     boarding_passes = check_boarding_passes()
-    print(f'The highest seat ID: {color_text(max(boarding_passes), 31)}')
+    print(f"The highest seat ID: {c(max(boarding_passes), 31)}")
     missing_seat_ids = find_missing_seat_ids(boarding_passes)
-    print(f'Missing seat ID(s):\n{missing_seat_ids}')
+    print(f"Missing seat ID(s):\n{missing_seat_ids}")

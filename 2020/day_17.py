@@ -1,8 +1,10 @@
 # Day 17 Advent of Code
 # Infinite 3d boolean matrix
-from helpers import *
-import matplotlib.pyplot as plt
 import itertools as itr
+
+import matplotlib.pyplot as plt
+
+from aoc.helpers import *
 
 
 def visualize(void, cycle, show_inactive=True):
@@ -16,34 +18,36 @@ def visualize(void, cycle, show_inactive=True):
                     ydata.append(coord[1])
                     zdata.append(coord[2])
         plt.figure(figsize=(20, 10))
-        ax = plt.axes(projection='3d')
-        ax.set_xlabel('x')
-        ax.set_ylabel('y')
-        ax.set_zlabel('z')
-        ax.set_title(f'Cycle: {cycle}, Slice: {w}')
-        ax.scatter3D(xdata, ydata, zdata, c=[COLORS[state] for state in void.values()] if show_inactive else [COLORS[1]])
+        ax = plt.axes(projection="3d")
+        ax.set_xlabel("x")
+        ax.set_ylabel("y")
+        ax.set_zlabel("z")
+        ax.set_title(f"Cycle: {cycle}, Slice: {w}")
+        ax.scatter3D(
+            xdata, ydata, zdata, c=[COLORS[state] for state in void.values()] if show_inactive else [COLORS[1]]
+        )
         plt.show()
 
 
 def print_space(void, cycle):
-    print(f'Cycle: {cycle} - ', end="")
+    print(f"Cycle: {cycle} - ", end="")
     x1, x2, y1, y2, z1, z2, w1, w2 = get_space_edge(void)
-    print(f'{x2 - x1 + 1}x{y2 - y1 + 1}x{z2 - z1 + 1}')
+    print(f"{x2 - x1 + 1}x{y2 - y1 + 1}x{z2 - z1 + 1}")
 
     row, col, layer, slices = zip(*void.keys())
     for w in sorted(set(slices)):
-        print(f'w = {w}')
+        print(f"w = {w}")
         for z in sorted(set(layer)):
-            print(f'z = {z}')
-            print('\t', end="")
+            print(f"z = {z}")
+            print("\t", end="")
             for x in sorted(set(col)):
-                print(f'{x}\t', end="")
+                print(f"{x}\t", end="")
             print()
             for y in sorted(set(row)):
-                print(f'{y}\t' if len(f'{y}') < 3 else f'{y} ', end="")
+                print(f"{y}\t" if len(f"{y}") < 3 else f"{y} ", end="")
                 for x in sorted(set(col)):
                     state = void.get((x, y, z, w))
-                    print(color_text('☐\t', 31) if state else '☐\t', end="")
+                    print(c("☐\t", 31) if state else "☐\t", end="")
                 print()
             print()
 
@@ -94,11 +98,11 @@ def new_states(void):
     return new_void
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     COLORS = [(0.3, 0.7, 1, 0.1), (1, 0.3, 0.3, 1)]
     CYCLES = 6
     VIZ_INACTIVE = False
-    input = import_input().read().replace('.', '0').replace('#', '1').split('\n')
+    input = import_input().read().replace(".", "0").replace("#", "1").split("\n")
 
     shift = (1 - len(input)) // 2
     void = {
@@ -115,4 +119,4 @@ if __name__ == '__main__':
         void = new_states(void)
         visualize(void, cycle + 1, VIZ_INACTIVE)
         print_space(void, cycle + 1)
-    print(f'Active cubes: {sum(void.values())}')
+    print(f"Active cubes: {sum(void.values())}")

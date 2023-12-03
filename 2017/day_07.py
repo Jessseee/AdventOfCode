@@ -1,21 +1,22 @@
 # Day <DAY> of Advent of Code <YEAR>
 # <PUZZLE TITLE>
-from helpers import *
-from dataclasses import dataclass, field
-from typing import List, Dict
 import re
+from dataclasses import dataclass, field
+from typing import Dict, List
+
+from aoc.helpers import *
 
 
 @dataclass
 class Node:
     name: str
     weight: int
-    children: List['Node'] = field(default_factory=list)
-    parent: 'Node' = None
+    children: List["Node"] = field(default_factory=list)
+    parent: "Node" = None
 
     def __repr__(self):
-        parent = f"<{self.parent.name}> " if self.parent else ''
-        children = f" -> {self.children}" if self.children else ''
+        parent = f"<{self.parent.name}> " if self.parent else ""
+        children = f" -> {self.children}" if self.children else ""
         return f"{parent}{self.name}({self.weight}){children}"
 
     def cumulative_weight(self):
@@ -25,12 +26,15 @@ class Node:
         return weight
 
     def balanced(self):
-        if not self.children: return True, None
+        if not self.children:
+            return True, None
         weights = []
         for child in self.children:
             balanced, correction = child.balanced()
-            if balanced: weights.append(child.cumulative_weight())
-            else: return False, correction
+            if balanced:
+                weights.append(child.cumulative_weight())
+            else:
+                return False, correction
         for i in range(len(weights)):
             if weights[i] != weights[0]:
                 unbalanced_node = self.children[i]
@@ -47,16 +51,17 @@ class Tree:
 
         for node in inputs:
             parent_name, weight, child_names = node
-            if child_names != '':
+            if child_names != "":
                 for child_name in child_names.split(", "):
                     self.nodes[child_name].parent = self.nodes[parent_name]
                     self.nodes[parent_name].children.append(self.nodes[child_name])
 
         for node in self.nodes.values():
-            if node.parent is None: self.base_node = node
+            if node.parent is None:
+                self.base_node = node
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     inputs = import_input(example=False).read()
     pattern = re.compile(r"(\w+) \((\d+)\)(?: -> (.+))?")
     inputs = re.findall(pattern, inputs)
@@ -64,4 +69,3 @@ if __name__ == '__main__':
     tree = Tree(inputs)
     print(tree.base_node.name)
     print(tree.base_node.balanced())
-

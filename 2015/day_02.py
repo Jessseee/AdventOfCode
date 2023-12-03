@@ -1,10 +1,9 @@
 # Day 2 of Advent of Code 2015
 # I Was Told There Would Be No Math
-from helpers import *
+from aoc.helpers import *
 
-
-if __name__ == '__main__':
-    inputs = [tuple(map(int, dimensions.split('x'))) for dimensions in import_input('\n', example=False)]
+if __name__ == "__main__":
+    inputs = [tuple(map(int, dimensions.split("x"))) for dimensions in import_input("\n", example=False)]
     wrapping_paper = 0
     ribbon = 0
     for l, w, h in inputs:
@@ -15,5 +14,5 @@ if __name__ == '__main__':
         volume = l * w * h
         wrapping_paper += surface + slack
         ribbon += smallest_perimeter + volume
-    print('total wrapping paper needed:', color_text(wrapping_paper, 32), 'square feet')
-    print('total length of ribbon needed:', color_text(ribbon, 32), 'feet')
+    print("total wrapping paper needed:", c(wrapping_paper, 32), "square feet")
+    print("total length of ribbon needed:", c(ribbon, 32), "feet")

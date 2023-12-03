@@ -36,18 +36,13 @@
 # >: 4 points.
 # The winning competed line is found by sorting all the autocomplete scores and then taking the middle score.
 
-from helpers import *
+from aoc.helpers import *
 
-tags = {
-    ('(', ')'): (3, 1),
-    ('[', ']'): (57, 2),
-    ('{', '}'): (1197, 3),
-    ('<', '>'): (25137, 4)
-}
+tags = {("(", ")"): (3, 1), ("[", "]"): (57, 2), ("{", "}"): (1197, 3), ("<", ">"): (25137, 4)}
 
 
-if __name__ == '__main__':
-    source = import_input('\n', example=False)
+if __name__ == "__main__":
+    source = import_input("\n", example=False)
     error_scores = 0
     completion_scores = []
     for line in source:
@@ -88,5 +83,5 @@ if __name__ == '__main__':
             completion_scores.append(complete_score)
 
     completion_score = sorted(completion_scores)[len(completion_scores) // 2]
-    print(f"The total error score is: {color_text('{:,}'.format(error_scores), 31)}")
-    print(f"The total completions score is: {color_text('{:,}'.format(completion_score), 31)}")
+    print(f"The total error score is: {c('{:,}'.format(error_scores), 31)}")
+    print(f"The total completions score is: {c('{:,}'.format(completion_score), 31)}")

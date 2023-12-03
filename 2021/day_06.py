@@ -11,12 +11,11 @@
 # After we are sure our algorithm is optimised enough we can find the number
 # of lanternfish after 256 days.
 
-from helpers import *
+from aoc.helpers import *
 
-
-if __name__ == '__main__':
-    init_fishes = import_input(',', int)
-    fishes = [0]*9
+if __name__ == "__main__":
+    init_fishes = import_input(",", int)
+    fishes = [0] * 9
     for i in init_fishes:
         fishes[i] += 1
 
@@ -25,5 +24,5 @@ if __name__ == '__main__':
         fishes[6] += spawn
         fishes.append(spawn)
         if day == 79:
-            print(f"After {color_text('80', 32)} days there are {color_text('{:,}'.format(sum(fishes)), 31)} angler fish!")
-    print(f"After {color_text('256', 32)} days there are {color_text('{:,}'.format(sum(fishes)), 31)} angler fish!")
+            print(f"After {c('80', 32)} days there are {c('{:,}'.format(sum(fishes)), 31)} angler fish!")
+    print(f"After {c('256', 32)} days there are {c('{:,}'.format(sum(fishes)), 31)} angler fish!")

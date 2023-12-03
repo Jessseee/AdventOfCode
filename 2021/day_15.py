@@ -15,11 +15,13 @@
 # visited it and set it to be the sum of the risk of the current node and the unvisited neighbour. Once we reach the
 # final target node we return the total risk score of the target node.
 
-from helpers import *
-import numpy as np
 from collections import defaultdict
-from math import inf
 from heapq import heappop, heappush
+from math import inf
+
+import numpy as np
+
+from aoc.helpers import *
 
 
 def dijkstra(risk_map):
@@ -46,16 +48,11 @@ def dijkstra(risk_map):
     return scores[target]
 
 
-if __name__ == '__main__':
-    risk_map = np.array([list(map(int, line)) for line in import_input('\n', example=True)])
-    large_risk_map = np.array([
-        [(risk - 1 + dx + dy) % 9 + 1 for dx in range(5) for risk in row]
-        for dy in range(5)
-        for row in risk_map
-    ])
+if __name__ == "__main__":
+    risk_map = np.array([list(map(int, line)) for line in import_input("\n", example=True)])
+    large_risk_map = np.array(
+        [[(risk - 1 + dx + dy) % 9 + 1 for dx in range(5) for risk in row] for dy in range(5) for row in risk_map]
+    )
 
-    print('The safest path on the small map has a total risk score of:', color_text(dijkstra(risk_map), 31))
-    print('The safest path on the large map has a total risk score of:', color_text(dijkstra(large_risk_map), 31))
-
-
-
+    print("The safest path on the small map has a total risk score of:", c(dijkstra(risk_map), 31))
+    print("The safest path on the large map has a total risk score of:", c(dijkstra(large_risk_map), 31))

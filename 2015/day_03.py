@@ -1,6 +1,6 @@
 # Day 3 of Advent of Code 2015
 # Perfectly Spherical Houses in a Vacuum
-from helpers import *
+from aoc.helpers import *
 
 
 class Santa:
@@ -8,18 +8,18 @@ class Santa:
         self.pos = [0, 0]
 
     def move(self, direction):
-        if direction == '^':
+        if direction == "^":
             self.pos[1] += 1
-        elif direction == '>':
+        elif direction == ">":
             self.pos[0] += 1
-        elif direction == 'v':
+        elif direction == "v":
             self.pos[1] -= 1
-        elif direction == '<':
+        elif direction == "<":
             self.pos[0] -= 1
         return tuple(self.pos)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     inputs = import_input(example=False).read()
     visited = {(0, 0)}
     real_santa = Santa()

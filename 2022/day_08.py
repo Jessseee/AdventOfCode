@@ -7,12 +7,12 @@
 # We first count the number of visible trees. However, we also want a scenic view. So, next we grade
 # each tree with a scenic score and build our tree house in the most scenic tree.
 
-from helpers import *
 import numpy as np
 
+from aoc.helpers import *
 
-if __name__ == '__main__':
-    forest = np.array(import_input('\n', lambda line: [int(char) for char in line], example=False))
+if __name__ == "__main__":
+    forest = np.array(import_input("\n", lambda line: [int(char) for char in line], example=False))
     directions = Vector2D.directions()
 
     def look_in_direction(position, height, direction):
@@ -41,10 +41,10 @@ if __name__ == '__main__':
     scenic_scores = []
     for position, height in np.ndenumerate(forest):
         visible, scenic_score = grade_tree(position, height)
-        if visible: visible_trees += 1
+        if visible:
+            visible_trees += 1
         scenic_scores.append(scenic_score)
     top_scenic_score = max(scenic_scores)
 
     print(result(visible_trees), "trees are visible from the edge of the forest.")
     print("The highest scenic score of any tree:", result(top_scenic_score))
-

@@ -1,15 +1,12 @@
 # Day 4 of Advent of Code 2016
 # Security Through Obscurity
-from helpers import *
 from collections import Counter
+
+from aoc.helpers import *
 
 
 def parse(s):
-    return (
-        re.findall(r"(\w+)-", s),
-        int(re.search(r"\d+", s).group()),
-        re.search(r"\[(\w+)\]", s).group(1)
-    )
+    return (re.findall(r"(\w+)-", s), int(re.search(r"\d+", s).group()), re.search(r"\[(\w+)\]", s).group(1))
 
 
 def check(encrypted_name, checksum):
@@ -28,11 +25,8 @@ def decrypt_name(encrypted_name, shift):
     return decrypted_name
 
 
-if __name__ == '__main__':
-    inputs = import_input(
-        '\n',
-        parse,
-        example=False)
+if __name__ == "__main__":
+    inputs = import_input("\n", parse, example=False)
 
     score = 0
     north_pole_room = ()
@@ -40,11 +34,12 @@ if __name__ == '__main__':
         if check(encrypted_name, checksum):
             score += sector_id
             name = decrypt_name(encrypted_name, sector_id)
-            if "northpole" in name: north_pole_room = (name, sector_id)
-            print(color_text(f"{encrypted_name} {sector_id} {checksum}", Color.GREEN))
+            if "northpole" in name:
+                north_pole_room = (name, sector_id)
+            print(c(f"{encrypted_name} {sector_id} {checksum}", Color.GREEN))
             print(name)
         else:
-            print(color_text(f"{encrypted_name} {sector_id} {checksum}", Color.RED))
+            print(c(f"{encrypted_name} {sector_id} {checksum}", Color.RED))
         print()
 
     print(f"The sum of the sector IDs of the valid rooms: {score}")

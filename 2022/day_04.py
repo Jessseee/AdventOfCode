@@ -8,8 +8,9 @@
 # all the other's sections. Our job is to find these section assignments that
 # overlap or contain each other from a list of section assignment pairs.
 
-from helpers import *
 import re
+
+from aoc.helpers import *
 
 
 def contains(sections1, sections2):
@@ -25,13 +26,13 @@ def in_range(n, range):
 
 
 def get_pairs(line):
-    pattern = re.compile(r'(\d+-\d+)')
+    pattern = re.compile(r"(\d+-\d+)")
     pair = re.findall(pattern, line)
-    return [list(map(int, assignment.split('-'))) for assignment in pair]
+    return [list(map(int, assignment.split("-"))) for assignment in pair]
 
 
-if __name__ == '__main__':
-    pairs = import_input('\n', get_pairs, example=False)
+if __name__ == "__main__":
+    pairs = import_input("\n", get_pairs, example=False)
     contained = 0
     overlapped = 0
     for pair in pairs:
@@ -39,5 +40,5 @@ if __name__ == '__main__':
             contained += 1
         if overlaps(pair[0], pair[1]) or overlaps(pair[1], pair[0]):
             overlapped += 1
-    print(f"{color_text(contained, Color.GREEN)} section assignments are contained in that of their cleaning partner.")
-    print(f"{color_text(overlapped, Color.GREEN)} section assignments overlap with that of their cleaning partner.")
+    print(f"{c(contained, Color.GREEN)} section assignments are contained in that of their cleaning partner.")
+    print(f"{c(overlapped, Color.GREEN)} section assignments overlap with that of their cleaning partner.")

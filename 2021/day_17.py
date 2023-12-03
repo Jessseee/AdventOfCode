@@ -14,9 +14,11 @@
 # For extra flair we can shoot the probe up, so it reaches the greatest possible height before reaching the trench.
 # But anyway, it might be useful to generate every possible starting velocity that makes the probe hit the target area.
 
-from helpers import *
-import numpy as np
 import re
+
+import numpy as np
+
+from aoc.helpers import *
 
 
 def launch_probe(x, y):
@@ -31,18 +33,17 @@ def launch_probe(x, y):
     return False
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     inputs = import_input().read()
-    target = [(int(i), int(j)) for i, j in re.findall(r'(-?[0-9]+)..(-?[0-9]+)', inputs)]
+    target = [(int(i), int(j)) for i, j in re.findall(r"(-?[0-9]+)..(-?[0-9]+)", inputs)]
     max_height = (target[1][0] + 1) * (target[1][0] // 2)
     acc = [-1, -1]
     hits = set()
 
-    for x in range(0, 1+target[0][1]):
+    for x in range(0, 1 + target[0][1]):
         for y in range(target[1][0], -target[1][0]):
             if launch_probe(x, y):
                 hits.add((x, y))
 
-    print('Maximum possible height:', max_height)
-    print('Number of possible trajectories:', len(hits))
-
+    print("Maximum possible height:", max_height)
+    print("Number of possible trajectories:", len(hits))

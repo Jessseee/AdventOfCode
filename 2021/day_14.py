@@ -19,24 +19,27 @@
 # To measure our results we keep track of the quantity of the most common element and subtract the quantity of the
 # least common element in the resulting polymer.
 
-from helpers import *
 from collections import defaultdict
+
+from aoc.helpers import *
 
 
 def print_results(counter, step):
     sorted_counter = sorted(counter.values())
-    print(f'After step {str(step+1).zfill(2)}: most common - least common =',
-          color_text('{:,}'.format(sorted_counter[-1] - sorted_counter[0]), 32))
+    print(
+        f"After step {str(step+1).zfill(2)}: most common - least common =",
+        c("{:,}".format(sorted_counter[-1] - sorted_counter[0]), 32),
+    )
 
 
-if __name__ == '__main__':
-    template, insert_pair = import_input('\n\n', example=False)
+if __name__ == "__main__":
+    template, insert_pair = import_input("\n\n", example=False)
     template = list(template)
-    insert_pairs = {k: v for k, v in [pair.split(' -> ') for pair in insert_pair.split('\n')]}
+    insert_pairs = {k: v for k, v in [pair.split(" -> ") for pair in insert_pair.split("\n")]}
 
     pairs = defaultdict(int)
     for i in range(1, len(template)):
-        pairs[template[i-1] + template[i]] += 1
+        pairs[template[i - 1] + template[i]] += 1
 
     counter = defaultdict(int)
     for char in template:

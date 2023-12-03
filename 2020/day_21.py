@@ -1,13 +1,17 @@
 # Day 21 Advent of Code
 # I might be allergic to that
-from helpers import *
 import re
 
-if __name__ == '__main__':
-    menu = import_input().read().split('\n')
+from aoc.helpers import *
+
+if __name__ == "__main__":
+    menu = import_input().read().split("\n")
     allergens_dict = {}
     no_allergens = set()
-    foods = {tuple(ingredients.split(' ')): allergens.split(', ') for ingredients, allergens in [re.search(r'(.*) \(contains (.*)\)$', food).groups() for food in menu]}
+    foods = {
+        tuple(ingredients.split(" ")): allergens.split(", ")
+        for ingredients, allergens in [re.search(r"(.*) \(contains (.*)\)$", food).groups() for food in menu]
+    }
 
     for ingredients, allergens in foods.items():
         for allergen in allergens:
@@ -36,4 +40,3 @@ if __name__ == '__main__':
     print(sorted(list(allergens_dict.keys())))
     print(allergens_dict)
     print(no_allergens)
-

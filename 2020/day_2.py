@@ -1,6 +1,6 @@
 # Day 2 of Advent of Code
 # Toboggan Corporation password policy checker
-from helpers import *
+from aoc.helpers import *
 
 
 # Part one
@@ -19,7 +19,7 @@ def sled_rental_pswd_policy_checker(lines):
 # Part two
 def toboggan_corp_pswd_policy_checker(lines):
     """
-        Print the number of valid passwords according to Toboggan Corporation's password policy
+    Print the number of valid passwords according to Toboggan Corporation's password policy
     """
     nr_of_valid_passwords = 0
     for line in lines:
@@ -34,16 +34,18 @@ def dissect_line(line):
     :param str line: The line to be dissected
     :returns: The dissected policy and password
     """
-    policy, password = line.split(':')
-    limits, char = policy.split(' ')
-    first_limit, second_limit = map(int, limits.split('-'))
+    policy, password = line.split(":")
+    limits, char = policy.split(" ")
+    first_limit, second_limit = map(int, limits.split("-"))
     return first_limit, second_limit, char, password
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     lines = import_input().readlines()
-    print(f'Number of valid passwords:\n'
-          f'According to sled rental password\'s policy: '
-          f'{color_text(sled_rental_pswd_policy_checker(lines), 31)}\n'
-          f'According to Toboggan Corporation\'s password policy: '
-          f'{color_text(toboggan_corp_pswd_policy_checker(lines), 31)}')
+    print(
+        f"Number of valid passwords:\n"
+        f"According to sled rental password's policy: "
+        f"{c(sled_rental_pswd_policy_checker(lines), 31)}\n"
+        f"According to Toboggan Corporation's password policy: "
+        f"{c(toboggan_corp_pswd_policy_checker(lines), 31)}"
+    )

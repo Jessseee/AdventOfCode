@@ -1,6 +1,7 @@
 # some utility function for displaying data.
-import matplotlib.pyplot as plt
 from enum import Enum
+
+import matplotlib.pyplot as plt
 
 
 def print_2d_array(array, el_length=1):
@@ -13,9 +14,9 @@ def print_2d_array(array, el_length=1):
     for row in array:
         for el in row:
             if el is None:
-                print(' '*(el_length-1) + '.', end=' ')
+                print(" " * (el_length - 1) + ".", end=" ")
             else:
-                print(str(el).zfill(el_length), end=' ')
+                print(str(el).zfill(el_length), end=" ")
         print()
 
 
@@ -26,17 +27,17 @@ def plot_3d_array(array):
     :param array: 3d array to plot.
     """
     fig = plt.figure()
-    ax = fig.add_subplot(projection='3d')
+    ax = fig.add_subplot(projection="3d")
     ax.scatter(*zip(*array))
     plt.show()
 
 
-Color = Enum('Color', ['BLACK', 'RED', 'GREEN', 'ORANGE', 'BLUE', 'PURPLE', 'CYAN', 'GREY'], start=30)
-Highlight = Enum('Highlight', ['BLACK', 'RED', 'GREEN', 'ORANGE', 'BLUE', 'PURPLE', 'CYAN', 'GREY'], start=30)
-Effect = Enum('Effect', zip(['BOLD', 'ITALIC', 'STRIKE', 'UNDERLINE'], [1, 3, 9, 21]))
+Color = Enum("Color", ["BLACK", "RED", "GREEN", "ORANGE", "BLUE", "PURPLE", "CYAN", "GREY"], start=30)
+Highlight = Enum("Highlight", ["BLACK", "RED", "GREEN", "ORANGE", "BLUE", "PURPLE", "CYAN", "GREY"], start=40)
+Effect = Enum("Effect", zip(["BOLD", "ITALIC", "STRIKE", "UNDERLINE"], [1, 3, 9, 21]))
 
 
-def color_text(text, effect):
+def c(text, effect):
     """
     Color text for display in console using ANSI escape sequence.
 
@@ -44,9 +45,10 @@ def color_text(text, effect):
     :param int effect: The ANSI code or related Enum value.
     :return: ANSI escape sequence.
     """
-    if isinstance(effect, (Color, Highlight, Effect)): effect = effect.value
-    return f'\033[{effect}m{str(text)}\033[0m'
+    if isinstance(effect, (Color, Highlight, Effect)):
+        effect = effect.value
+    return f"\033[{effect}m{str(text)}\033[0m"
 
 
 def result(text):
-    return color_text(text, Color.GREEN)
+    return c(text, Color.GREEN)

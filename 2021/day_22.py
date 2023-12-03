@@ -1,7 +1,8 @@
 # Day 22 of Advent of Code 2021
 # Reactor Reboot
-from helpers import *
 from itertools import product
+
+from aoc.helpers import *
 
 
 def inside(ranges1, ranges2):
@@ -16,20 +17,20 @@ def intersect(ranges1, ranges2):
 
 def volume(ranges):
     x, y, z = ranges
-    return(x[1] - x[0] + 1) * (y[1] - y[0] + 1) * (z[1] - z[0] + 1)
+    return (x[1] - x[0] + 1) * (y[1] - y[0] + 1) * (z[1] - z[0] + 1)
 
 
 def reboot_reactor(instructions, limit):
     reactor = {}
     steps = len(instructions)
-    print('limit:', limit)
+    print("limit:", limit)
     for step, line in enumerate(instructions):
-        print(f'step {step}/{steps}: {line}')
-        state, ranges = line.split(' ')
-        is_on = state == 'on'
-        ranges = tuple((int(r[0]), int(r[1]))for r in re.findall(r'(-?[0-9]+)..(-?[0-9]+)', ranges))
+        print(f"step {step}/{steps}: {line}")
+        state, ranges = line.split(" ")
+        is_on = state == "on"
+        ranges = tuple((int(r[0]), int(r[1])) for r in re.findall(r"(-?[0-9]+)..(-?[0-9]+)", ranges))
         if limit and not inside(ranges, limit):
-            print('outside limit:', ranges, end='\n\n')
+            print("outside limit:", ranges, end="\n\n")
             continue
         intersections = {}
         for other_range, other_volume in reactor.items():
@@ -42,11 +43,11 @@ def reboot_reactor(instructions, limit):
         reactor.update(intersections)
         if is_on:
             reactor[ranges] = volume(ranges)
-        print('reactor:', reactor.values(), sum(reactor.values()), end='\n\n')
+        print("reactor:", reactor.values(), sum(reactor.values()), end="\n\n")
 
 
-if __name__ == '__main__':
-    instructions = import_input('\n', example=True)
-    limit = ([(-50, 50)] * 3)
+if __name__ == "__main__":
+    instructions = import_input("\n", example=True)
+    limit = [(-50, 50)] * 3
     reboot_reactor(instructions, limit)
     # reboot_reactor(instructions, None)

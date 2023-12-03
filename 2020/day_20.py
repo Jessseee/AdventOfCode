@@ -1,6 +1,7 @@
 # Day  20 Advent of Code
-from helpers import *
 import numpy as np
+
+from aoc.helpers import *
 
 
 class Image:
@@ -20,7 +21,7 @@ class Image:
             for j in range(4):
                 other_edge = list(np.rot90(other.array, j)[0])
                 if edge == other_edge:
-                    other.rotate(2-j)
+                    other.rotate(2 - j)
                     return 2 - j
                 elif edge == other_edge[::-1]:
                     other.rotate(2 - j)
@@ -30,7 +31,7 @@ class Image:
 
     def rotate(self, rot):
         self.array = np.rot90(self.array)
-        self.rot += (self.rot + rot % 4)
+        self.rot += self.rot + rot % 4
 
     def flip(self, dir):
         self.array = np.flip(self.array, dir)
@@ -50,12 +51,14 @@ def find_matching_images(image, images, placed):
         find_matching_images(other, images, placed)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     IMG_SIZE = 10
     DIRS = [(-1, 0), (0, -1), (1, 0), (0, 1)]
-    images = import_input(True).read().replace('#', '1').replace('.', '0').split('\n\n')
-    images = {int(id.split(' ')[1]): Image(int(id.split(' ')[1]), np.array([[int(char) for char in line] for line in image.split('\n')])) for id, image in [data.split(':\n') for data in images]}
+    images = import_input(True).read().replace("#", "1").replace(".", "0").split("\n\n")
+    images = {
+        int(id.split(" ")[1]): Image(
+            int(id.split(" ")[1]), np.array([[int(char) for char in line] for line in image.split("\n")])
+        )
+        for id, image in [data.split(":\n") for data in images]
+    }
     find_matching_images(images[1427], images, {})
-
-
-

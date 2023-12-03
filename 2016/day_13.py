@@ -1,13 +1,14 @@
 # Day <DAY> of Advent of Code <YEAR>
 # <PUZZLE TITLE>
-from helpers import *
 from math import inf
+
+from aoc.helpers import *
 
 
 def is_wall(x, y, bias) -> bool:
     value = x * x + 3 * x + 2 * x * y + y + y * y
     value += bias
-    value = sum(map(int, '{0:b}'.format(value)))
+    value = sum(map(int, "{0:b}".format(value)))
     return value % 2 != 0
 
 
@@ -71,15 +72,16 @@ def plot_search(start, target, observed, walls, shortest_path):
     plt.show()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     bias = int(import_input(example=False).read())
     start = (1, 1)
     target = (31, 39)
     results = (observed, _, shortest_path) = search(start, target)
 
     print(f"Length of shortest path to room {target}:", len(shortest_path))
-    print("number of rooms that can be visited in at most 50 steps: ",
-          len([room for room, steps in observed.items() if steps <= 50]))
+    print(
+        "number of rooms that can be visited in at most 50 steps: ",
+        len([room for room, steps in observed.items() if steps <= 50]),
+    )
 
     plot_search(start, target, *results)
-

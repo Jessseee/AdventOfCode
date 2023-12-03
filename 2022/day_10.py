@@ -10,7 +10,7 @@
 # Our job is to find out what the values of register X are during the execution of a given
 # program and what the resulting image on the screen should look like.
 
-from helpers import *
+from aoc.helpers import *
 
 
 class AddX:
@@ -28,8 +28,8 @@ class AddX:
         return f"addx {self.value}"
 
 
-if __name__ == '__main__':
-    instructions = import_input('\n', example=False)
+if __name__ == "__main__":
+    instructions = import_input("\n", example=False)
     X = 1
     crt = []
     cycle = 1
@@ -37,11 +37,11 @@ if __name__ == '__main__':
     signal_strengths = []
     while len(instructions) > 0 or current_operation is not None:
         if current_operation is None and len(instructions) > 0:
-            instruction = instructions.pop(0).split(' ')
-            if instruction[0] == 'noop':
+            instruction = instructions.pop(0).split(" ")
+            if instruction[0] == "noop":
                 print(f"Start cycle  {cycle}: begin executing noop")
                 pass
-            elif instruction[0] == 'addx':
+            elif instruction[0] == "addx":
                 current_operation = AddX(int(instruction[1]))
                 print(f"Start cycle  {cycle}: begin executing {current_operation}")
 
@@ -51,10 +51,10 @@ if __name__ == '__main__':
         pixel = (cycle - 1) % 40
         if pixel == 0:
             crt.append([])
-        crt[-1].append(result('0') if pixel in range(X - 1, X + 2) else ' ')
+        crt[-1].append(result("0") if pixel in range(X - 1, X + 2) else " ")
 
         print(f"During cycle {cycle}: draw pixel in position {pixel}")
-        print("Current CRT row:", ''.join(crt[-1]))
+        print("Current CRT row:", "".join(crt[-1]))
 
         if current_operation is not None and current_operation.finished():
             X += current_operation.value

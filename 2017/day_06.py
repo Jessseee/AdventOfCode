@@ -1,7 +1,8 @@
 # Day <DAY> of Advent of Code <YEAR>
 # <PUZZLE TITLE>
-from helpers import *
 import numpy as np
+
+from aoc.helpers import *
 
 
 def reallocate_till_known_state(init_state):
@@ -29,13 +30,11 @@ def reallocate(init_state):
     return new_state
 
 
-if __name__ == '__main__':
-    init_state = np.array(import_input('\t', int, example=False))
+if __name__ == "__main__":
+    init_state = np.array(import_input("\t", int, example=False))
 
     cycles, state = reallocate_till_known_state(init_state)
-    print(f"It took {color_text(cycles, 32)} cycles to reallocate memory. Final state: {tuple(state)}")
+    print(f"It took {c(cycles, 32)} cycles to reallocate memory. Final state: {tuple(state)}")
 
     cycles, state = reallocate_till_known_state(state)
-    print(f"The reallocation loop after state {tuple(state)} is {color_text(cycles, 32)} cycles long.")
-
-
+    print(f"The reallocation loop after state {tuple(state)} is {c(cycles, 32)} cycles long.")

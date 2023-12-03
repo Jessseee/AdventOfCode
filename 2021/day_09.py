@@ -8,17 +8,18 @@
 # The submarine generates a heightmap of the floor of the nearby caves for us. And we know smoke flows to
 # the lowest points on the heightmap. A low point is any locations that are lower than any of its adjacent locations.
 
-from helpers import *
 import numpy as np
+
+from aoc.helpers import *
 
 
 def print_heightmap(heightmap):
     for row in heightmap:
         for el in row:
             if el < 9:
-                print(color_text(str('~'), 34), end=' ')
+                print(c(str("~"), 34), end=" ")
             else:
-                print(color_text(str('0'), 33), end=' ')
+                print(c(str("0"), 33), end=" ")
         print()
 
 
@@ -27,7 +28,7 @@ def find_low_points(heightmap):
     low_points = set()
     x_max, y_max = heightmap.shape
     for (x, y), height in np.ndenumerate(heightmap):
-        if height == min(heightmap[max(x - 1, 0):min(x + 2, x_max), max(y - 1, 0):min(y + 2, y_max)].flatten()):
+        if height == min(heightmap[max(x - 1, 0) : min(x + 2, x_max), max(y - 1, 0) : min(y + 2, y_max)].flatten()):
             risk_factor += height + 1
             low_points.add((x, y))
     return low_points, risk_factor
@@ -51,16 +52,16 @@ def find_all_basins(heightmap, low_points):
     return basins
 
 
-if __name__ == '__main__':
-    heightmap = np.array([[int(x) for x in y] for y in import_input('\n', example=False)])
+if __name__ == "__main__":
+    heightmap = np.array([[int(x) for x in y] for y in import_input("\n", example=False)])
 
     print_heightmap(heightmap)
 
     # First we want to find out where all the low points are in the heightmap.
     low_points, risk_factor = find_low_points(heightmap)
-    print(f'The total risk factor of the lowest points in the cave is: {color_text(risk_factor, 32)}')
+    print(f"The total risk factor of the lowest points in the cave is: {c(risk_factor, 32)}")
 
     # After finding. all the low points we can calculate the size of the three largest basins.
     basins = find_all_basins(heightmap, low_points)
     top_three_basins = np.prod(sorted(basins, reverse=True)[:3])
-    print(f"The product of the size of the three largest basins is: {color_text('{:,}'.format(top_three_basins), 32)}")
+    print(f"The product of the size of the three largest basins is: {c('{:,}'.format(top_three_basins), 32)}")

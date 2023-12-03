@@ -11,7 +11,7 @@
 
 import string
 
-from helpers import *
+from aoc.helpers import *
 
 
 def compartmentalize(rucksack):
@@ -21,7 +21,7 @@ def compartmentalize(rucksack):
     @param rucksack: The rucksack item list to split.
     @return: Split rucksack item list.
     """
-    divide = len(rucksack)//2
+    divide = len(rucksack) // 2
     return [rucksack[:divide], rucksack[divide:]]
 
 
@@ -36,8 +36,10 @@ def compare_rucksacks(all_rucksacks, n=1):
     scores = list(string.ascii_letters)
     score = 0
     for i in range(0, len(all_rucksacks), n):
-        if n == 1: rucksacks = compartmentalize(all_rucksacks[i])
-        else: rucksacks = all_rucksacks[i:i + n]
+        if n == 1:
+            rucksacks = compartmentalize(all_rucksacks[i])
+        else:
+            rucksacks = all_rucksacks[i : i + n]
         for item in rucksacks[0]:
             if all([item in rucksack for rucksack in rucksacks[1:]]):
                 score += scores.index(item) + 1
@@ -45,11 +47,9 @@ def compare_rucksacks(all_rucksacks, n=1):
     return score
 
 
-if __name__ == '__main__':
-    rucksacks = import_input('\n', example=False)
+if __name__ == "__main__":
+    rucksacks = import_input("\n", example=False)
 
-    print("Score of common items in rucksack compartments: ",
-          color_text(compare_rucksacks(rucksacks, 1), Color.GREEN))
+    print("Score of common items in rucksack compartments: ", c(compare_rucksacks(rucksacks, 1), Color.GREEN))
 
-    print("Score of common items in groups of three rucksacks: ",
-          color_text(compare_rucksacks(rucksacks, 3), Color.GREEN))
+    print("Score of common items in groups of three rucksacks: ", c(compare_rucksacks(rucksacks, 3), Color.GREEN))

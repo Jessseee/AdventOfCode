@@ -1,13 +1,12 @@
 # Some utility function for importing and parsing data.
-import sys
 import os
 import re
-
-from typing import Callable, Any
+import sys
+from typing import Any, Callable
 from typing.io import IO
 
 
-def import_input(split: str = None, parser: Callable[[str], Any] = None, example: bool = False) -> list|IO:
+def import_input(split: str = None, parser: Callable[[str], Any] = None, example: bool = False) -> list | IO:
     """
     Import input or example data from text file.
 
@@ -16,13 +15,16 @@ def import_input(split: str = None, parser: Callable[[str], Any] = None, example
     :param example: Should import example input instead.
     :return: inputs from input file.
     """
-    day = re.findall('[0-9]+', os.path.basename(sys.argv[0]))[0]
+    day = re.findall("[0-9]+", os.path.basename(sys.argv[0]))[0]
     path = "input/example_input_day_" + day + ".txt" if example else "input/input_day_" + day + ".txt"
-    if not os.path.isfile(path): raise FileNotFoundError(f"Input file does not exist at {path}")
+    if not os.path.isfile(path):
+        raise FileNotFoundError(f"Input file does not exist at {path}")
     inputs = open(path)
     if split is not None:
-        if split == '': inputs = [char for char in inputs.read()]
-        else: inputs = inputs.read().split(split)
+        if split == "":
+            inputs = [char for char in inputs.read()]
+        else:
+            inputs = inputs.read().split(split)
     if parser is not None:
         inputs = list(map(parser, inputs))
     return inputs
@@ -37,7 +39,7 @@ def replace_chr(i, char, string):
     :param str string: String to replace character in.
     :return: String with character replaced.
     """
-    return string[:i] + char + string[i + 1:]
+    return string[:i] + char + string[i + 1 :]
 
 
 def replace_chrs(span, char, string):
@@ -49,7 +51,4 @@ def replace_chrs(span, char, string):
     :param str string: String to replace characters in.
     :return: String with characters replaced.
     """
-    return string[:span[0]] + char + string[span[1]:]
-
-
-
+    return string[: span[0]] + char + string[span[1] :]

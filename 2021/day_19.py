@@ -1,9 +1,11 @@
 # Day <DAY> of Advent of Code <YEAR>
 # <PUZZLE TITLE>
-from helpers import *
-import numpy as np
-import matplotlib.pyplot as plt
 from itertools import combinations, permutations
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+from aoc.helpers import *
 
 
 def intersection(beacon1, beacon2):
@@ -27,16 +29,19 @@ def basis_diff(base, to_compare):
     return basis
 
 
-if __name__ == '__main__':
-    scanners = [[tuple(map(int, beacon.split(','))) for beacon in scanner.split('\n')[1:]] for scanner in import_input('\n\n', example=True)]
+if __name__ == "__main__":
+    scanners = [
+        [tuple(map(int, beacon.split(","))) for beacon in scanner.split("\n")[1:]]
+        for scanner in import_input("\n\n", example=True)
+    ]
     for i, scanner in enumerate(scanners):
-        print(f'--- scanner {i} ---', scanner)
+        print(f"--- scanner {i} ---", scanner)
         fig = plt.figure()
-        ax = plt.axes(projection='3d')
-        ax.scatter3D(0, 0, 0, color='red')
+        ax = plt.axes(projection="3d")
+        ax.scatter3D(0, 0, 0, color="red")
         for beacon in scanner:
-            ax.scatter3D(*beacon, alpha=0.8, color='blue')
-        plt.title(f'--- scanner {i} ---')
+            ax.scatter3D(*beacon, alpha=0.8, color="blue")
+        plt.title(f"--- scanner {i} ---")
         # plt.show()
 
     # First calculate the distances between every beacon for each scanner
@@ -76,4 +81,3 @@ if __name__ == '__main__':
         print(key, basis, match1[0] - np.array([x, y, z]))
         scanner_rel_base[key] = (match1[0] - np.array([x, y, z]), basis)
     # print(scanner_rel_base)
-

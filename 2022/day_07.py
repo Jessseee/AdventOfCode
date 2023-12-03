@@ -6,12 +6,13 @@
 # the sizes of the nested directories and find a suitable directory to remove to create enough space
 # for the update.
 
-from helpers import *
 from collections import defaultdict
+
+from aoc.helpers import *
 
 
 class Directory(defaultdict):
-    def __init__(self, name='dir', size=0):
+    def __init__(self, name="dir", size=0):
         super().__init__(Directory)
         self.name = name
         self.size = size
@@ -22,7 +23,7 @@ class Directory(defaultdict):
     def print_content(self, directory=None, depth=0, result=""):
         directory = directory or self
         for key, item in directory.items():
-            offset = color_text(depth * ' | ', Color.GREY)
+            offset = c(depth * " | ", Color.GREY)
             if not isinstance(item, defaultdict):
                 print(f"{offset} {key} (file, size={item})")
             else:
@@ -66,12 +67,12 @@ class Directory(defaultdict):
 
 def resolve_tree(inputs):
     depth = []
-    current_directory = root_directory = Directory('/')
+    current_directory = root_directory = Directory("/")
     for line in inputs:
-        line = line.split(' ')
-        if line[:2] == ['$', 'cd']:
+        line = line.split(" ")
+        if line[:2] == ["$", "cd"]:
             directory = line[2]
-            if directory == '..':
+            if directory == "..":
                 depth.pop()
             else:
                 depth.append(directory)
@@ -79,32 +80,38 @@ def resolve_tree(inputs):
             for directory in depth:
                 current_directory = current_directory[directory]
                 current_directory.name = directory
-        elif line[:2] == ['$', 'ls']:
+        elif line[:2] == ["$", "ls"]:
             pass
         else:
             size, item_name = line
-            if size == 'dir':
+            if size == "dir":
                 current_directory[item_name] = Directory(item_name)
             else:
                 current_directory[item_name] = int(size)
     return root_directory
 
 
-if __name__ == '__main__':
-    inputs = import_input('\n', example=False)
+if __name__ == "__main__":
+    inputs = import_input("\n", example=False)
 
     root_directory = resolve_tree(inputs)
     root_directory.resolve_subdir_size()
     root_directory.print_content()
     print()
 
-    def condition(directory): return directory.size <= 100000
+    def condition(directory):
+        return directory.size <= 100000
+
     directories_at_most_100000 = sum(root_directory.get_subdirs_by_condition(condition))
-    print(f"the cumulative size of directories with a size of at most 100K: "
-          f"{color_text(directories_at_most_100000, Color.GREEN)}")
+    print(
+        f"the cumulative size of directories with a size of at most 100K: "
+        f"{c(directories_at_most_100000, Color.GREEN)}"
+    )
 
     required_space, free_space = 30000000, (70000000 - root_directory.size)
-    def condition(directory): return directory.size >= required_space - free_space
+
+    def condition(directory):
+        return directory.size >= required_space - free_space
+
     directory_to_delete = min(root_directory.get_subdirs_by_condition(condition))
-    print(f"The smallest directory to delete to create space for the update: "
-          f"{color_text(directory_to_delete, Color.GREEN)}")
+    print(f"The smallest directory to delete to create space for the update: " f"{c(directory_to_delete, Color.GREEN)}")

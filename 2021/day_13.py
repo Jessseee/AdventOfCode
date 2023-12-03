@@ -17,43 +17,44 @@
 
 # Our job is to fold up the paper correctly and find the 8 character code to activate the thermal camera.
 
-from helpers import *
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
+
+from aoc.helpers import *
 
 
 def fold(side1, side2, half):
     # If either side of the fold is larger than the other add the smaller side to the larger side at the fold
     diff = (side1.shape[0] - side2.shape[0], side1.shape[1] - side2.shape[1])
     if index < half:
-        side2[diff[0]:side1.shape[0] + diff[0], diff[1]:side1.shape[1] + diff[1]] += side1
+        side2[diff[0] : side1.shape[0] + diff[0], diff[1] : side1.shape[1] + diff[1]] += side1
         return side2
     elif index > half:
-        side1[diff[0]:side2.shape[0] + diff[0], diff[1]:side2.shape[1] + diff[1]] += side2
+        side1[diff[0] : side2.shape[0] + diff[0], diff[1] : side2.shape[1] + diff[1]] += side2
         return side1
     # If both sides are equal simply add them together
     else:
         return side1 + side2
 
 
-if __name__ == '__main__':
-    dots, instructions = import_input('\n\n', example=False)
-    dots = np.array([tuple(map(int, line.split(','))) for line in dots.split('\n')])
-    instructions = [(d[-1], int(i)) for d, i in [line.split('=') for line in instructions.split('\n')]]
-    paper_shape = (max(dots[:, 1])+1, max(dots[:, 0])+1)
+if __name__ == "__main__":
+    dots, instructions = import_input("\n\n", example=False)
+    dots = np.array([tuple(map(int, line.split(","))) for line in dots.split("\n")])
+    instructions = [(d[-1], int(i)) for d, i in [line.split("=") for line in instructions.split("\n")]]
+    paper_shape = (max(dots[:, 1]) + 1, max(dots[:, 0]) + 1)
     paper = np.zeros(paper_shape, bool)
     for dot in dots:
         paper[dot[1], dot[0]] = 1
 
     for direction, index in instructions:
-        if direction == 'y':
+        if direction == "y":
             top = paper[:index, :]
-            bottom = np.flipud(paper[index+1:, :])
+            bottom = np.flipud(paper[index + 1 :, :])
             paper = fold(top, bottom, paper.shape[1] / 2)
 
-        if direction == 'x':
+        if direction == "x":
             left = paper[:, :index]
-            right = np.fliplr(paper[:, index+1:])
+            right = np.fliplr(paper[:, index + 1 :])
             paper = fold(left, right, paper.shape[0] / 2)
 
     plt.imshow(paper)
