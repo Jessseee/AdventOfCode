@@ -1,7 +1,8 @@
 # Day 7 Advent of Code
 # Where to put my shiny golden bag
-from helpers import *
 import re
+
+from aoc.helpers import *
 
 searched_bag = "shiny gold"
 
@@ -31,11 +32,9 @@ def contained_in(outer_bag, count=0):
     return count
 
 
-if __name__ == '__main__':
-    luggage_rules = re.sub('bags?', '', import_input().read())\
-        .replace('.', '')\
-        .split('\n')
-    luggage_rules = [rule.split('contain') for rule in luggage_rules]
-    luggage_rules = {rule[0].strip(): [bag.strip() for bag in rule[1].split(',')] for rule in luggage_rules}
+if __name__ == "__main__":
+    luggage_rules = re.sub("bags?", "", import_input().read()).replace(".", "").split("\n")
+    luggage_rules = [rule.split("contain") for rule in luggage_rules]
+    luggage_rules = {rule[0].strip(): [bag.strip() for bag in rule[1].split(",")] for rule in luggage_rules}
     print(luggage_rules)
     print(contained_in(searched_bag))

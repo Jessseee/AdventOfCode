@@ -10,9 +10,11 @@
 # It is important to find the positions where multiple vents overlap,
 # so we know what areas to avoid.
 
-from helpers import *
 from collections import Counter
+
 import matplotlib.pyplot as plt
+
+from aoc.helpers import *
 
 
 def get_points(inputs):
@@ -30,15 +32,13 @@ def plt_vents(inputs):
     fig, ax = plt.subplots()
     ax.set_facecolor("#0f0f23")
     for line in inputs:
-        ax.plot([line[0][0], line[1][0]], [line[0][1], line[1][1]],
-                linewidth=0.25, color='#00cc00')
+        ax.plot([line[0][0], line[1][0]], [line[0][1], line[1][1]], linewidth=0.25, color="#00cc00")
     plt.show()
 
 
-if __name__ == '__main__':
-    inputs = [[tuple(int(num) for num in p.split(',')) for p in line.split(' -> ')] for line in import_input('\n')]
+if __name__ == "__main__":
+    inputs = [[tuple(int(num) for num in p.split(",")) for p in line.split(" -> ")] for line in import_input("\n")]
     points = get_points(inputs)
     overlap = Counter({k: c for k, c in Counter(points).items() if c > 1})
-    print(f'There are {len(overlap)} dangerous areas where vents overlap')
+    print(f"There are {len(overlap)} dangerous areas where vents overlap")
     plt_vents(inputs)
-

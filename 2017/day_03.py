@@ -1,6 +1,6 @@
 # Day <DAY> of Advent of Code <YEAR>
 # <PUZZLE TITLE>
-from helpers import *
+from aoc.helpers import *
 
 
 class Spiral:
@@ -35,14 +35,14 @@ class Spiral:
 
     def get_neighbours(self):
         neighbours = []
-        for x in range(self.cursor.x-1, self.cursor.x+2):
-            for y in range(self.cursor.y-1, self.cursor.y+2):
+        for x in range(self.cursor.x - 1, self.cursor.x + 2):
+            for y in range(self.cursor.y - 1, self.cursor.y + 2):
                 if (x, y) != self.cursor:
                     neighbours.append(self.matrix.get((x, y)) or 0)
         return neighbours
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     number = int(import_input(example=False).read())
     print(Spiral(sum_neighbours=False).traverse(number))
     print(Spiral(sum_neighbours=True).traverse(number))

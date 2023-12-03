@@ -30,9 +30,10 @@
 # The magnitude of a pair is 3 times the magnitude of its left element plus 2 times the magnitude of its right element.
 # The magnitude of a regular number is just that number.
 
-from helpers import *
-from math import floor, ceil
 from itertools import permutations
+from math import ceil, floor
+
+from aoc.helpers import *
 
 
 def first_int(number):
@@ -43,17 +44,17 @@ def first_int(number):
 
 
 def explode(number, i):
-    pair = [number[i + 1], number[i+3]]
+    pair = [number[i + 1], number[i + 3]]
     if left := first_int(number[i::-1]):
-        number[i-left[0]] += pair[0]
-    if right := first_int(number[i+4:]):
-        number[i+4+right[0]] += pair[1]
-    number[i:i+5] = [0]
+        number[i - left[0]] += pair[0]
+    if right := first_int(number[i + 4 :]):
+        number[i + 4 + right[0]] += pair[1]
+    number[i : i + 5] = [0]
     return number
 
 
 def split(number, i):
-    number[i:i+1] = ['[', floor(number[i]/2), ',', ceil(number[i]/2), ']']
+    number[i : i + 1] = ["[", floor(number[i] / 2), ",", ceil(number[i] / 2), "]"]
     return number
 
 
@@ -62,9 +63,9 @@ def reduce(number):
     depth = 0
     for i, el in enumerate(number):
         if isinstance(el, str):
-            if el == '[':
+            if el == "[":
                 depth += 1
-            elif el == ']':
+            elif el == "]":
                 depth -= 1
             if depth > 4:
                 number = explode(number, i)
@@ -82,7 +83,7 @@ def reduce(number):
 
 
 def add(left, right):
-    concat = ['[', *left, ',', *right, ']'] if left else right
+    concat = ["[", *left, ",", *right, "]"] if left else right
     result = reduce(concat)
     # print('  ', ''.join(map(str, left)))
     # print('+ ', ''.join(map(str, right)))
@@ -95,30 +96,32 @@ def calc_mag(number):
     left, right = number
     left = left if isinstance(left, int) else calc_mag(left)
     right = right if isinstance(right, int) else calc_mag(right)
-    mag += 3*left + 2*right
+    mag += 3 * left + 2 * right
     return mag
 
 
-if __name__ == '__main__':
-    numbers = [[int(char) if char.isnumeric() else char for char in re.findall(r'(\[|]|,|[0-9]+)', line)] for line in import_input('\n', example=False)]
+if __name__ == "__main__":
+    numbers = [
+        [int(char) if char.isnumeric() else char for char in re.findall(r"(\[|]|,|[0-9]+)", line)]
+        for line in import_input("\n", example=False)
+    ]
 
     # Calculate the homework results by adding up all the given snailfish numbers
     result = []
     for number in numbers:
         result = add(result, number)
-    result = eval(''.join(map(str, result)))
+    result = eval("".join(map(str, result)))
 
-    print('homework result:', result)
-    print('homework magnitude:', calc_mag(result))
+    print("homework result:", result)
+    print("homework magnitude:", calc_mag(result))
 
     # On the back of the homework there is another question:
     # What is the largest magnitude you can get from adding only two of the snailfish numbers?
     max_mag = 0
     for combination in permutations(numbers, 2):
         result = add(combination[0], combination[1])
-        result = eval(''.join(map(str, result)))
+        result = eval("".join(map(str, result)))
         mag = calc_mag(result)
         max_mag = max(max_mag, mag)
 
-    print('maximum magnitude:', max_mag)
-
+    print("maximum magnitude:", max_mag)

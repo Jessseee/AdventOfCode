@@ -1,13 +1,14 @@
 # Day <DAY> of Advent of Code <YEAR>
 # <PUZZLE TITLE>
-from helpers import *
 from collections import defaultdict
 from dataclasses import dataclass, field
+
+from aoc.helpers import *
 
 
 def parse_target(target):
     type, index = target.split(" ")
-    return bots[int(index)] if type == 'bot' else outputs[int(index)]
+    return bots[int(index)] if type == "bot" else outputs[int(index)]
 
 
 @dataclass
@@ -26,8 +27,8 @@ class Bot(Output):
         self.chips = []
 
 
-if __name__ == '__main__':
-    inputs = import_input('\n', example=False)
+if __name__ == "__main__":
+    inputs = import_input("\n", example=False)
     bots = defaultdict(Bot)
     outputs = defaultdict(Output)
     for instruction in inputs:

@@ -9,20 +9,28 @@
 # this area might also make a great hiking trail, so we will also want to find the shortest path from any starting point
 # with the lowest elevation.
 
-from helpers import *
-import numpy as np
 import string
+
 import matplotlib.pyplot as plt
+import numpy as np
+
+from aoc.helpers import *
 
 
 def parse_height_map(heightmap):
     start = target = None
     new_heightmap = np.zeros(heightmap.shape, int)
     for (x, y), height in np.ndenumerate(heightmap):
-        if height == 'S': start, height = (x, y), 'a'
-        elif height == 'E': target, height = (x, y), 'z'
+        if height == "S":
+            start, height = (x, y), "a"
+        elif height == "E":
+            target, height = (x, y), "z"
         new_heightmap[x, y] = string.ascii_lowercase.index(height)
-    return new_heightmap, start, target,
+    return (
+        new_heightmap,
+        start,
+        target,
+    )
 
 
 def find_path(heightmap, start, targets, check):
@@ -34,8 +42,12 @@ def find_path(heightmap, start, targets, check):
         current = to_visit.pop(0)
         if current in targets:
             return linked_nodes, current
-        neighbours = [(max(current[0] - 1, 0), current[1]), (min(current[0] + 1, x_max), current[1]),
-                      (current[0], max(current[1] - 1, 0)), (current[0], min(current[1] + 1, y_max))]
+        neighbours = [
+            (max(current[0] - 1, 0), current[1]),
+            (min(current[0] + 1, x_max), current[1]),
+            (current[0], max(current[1] - 1, 0)),
+            (current[0], min(current[1] + 1, y_max)),
+        ]
         for neighbour in neighbours:
             if neighbour in visited or check(heightmap[current], heightmap[neighbour]):
                 continue
@@ -57,14 +69,14 @@ def reconstruct_path(linked_nodes, destination):
 
 def plot_map(heightmap):
     plt.matshow(heightmap)
-    plt.set_cmap('hot')
+    plt.set_cmap("hot")
     plt.colorbar()
     plt.axis("off")
     plt.show()
 
 
-if __name__ == '__main__':
-    heightmap = np.array(import_input('\n', list, example=False))
+if __name__ == "__main__":
+    heightmap = np.array(import_input("\n", list, example=False))
     heightmap, start, target = parse_height_map(heightmap)
 
     linked_nodes, destination = find_path(heightmap, start, [target], lambda a, b: b > a + 1)

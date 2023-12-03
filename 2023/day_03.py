@@ -6,29 +6,29 @@
 # engine parts, which are any numbers adjacent to a symbol on the schematic. Followed by
 # finding the gear ratio, which is the product of two numbers adjacent to a '*' symbol.
 
-from helpers import *
 from itertools import product
+
 from numpy import prod
+
+from aoc.helpers import *
 
 
 def get_neighbours(position):
     return [
-        tuple(map(sum, zip(position, neighbour)))
-        for neighbour in product([-1, 0, 1], repeat=2)
-        if neighbour != (0, 0)
+        tuple(map(sum, zip(position, neighbour))) for neighbour in product([-1, 0, 1], repeat=2) if neighbour != (0, 0)
     ]
 
 
-if __name__ == '__main__':
-    schematic = import_input('\n', example=False)
+if __name__ == "__main__":
+    schematic = import_input("\n", example=False)
 
     # Find position/span of numbers and symbols
     numbers, symbols = [], {}
     for row, string in enumerate(schematic):
         numbers.append({})
-        for match in re.finditer(r'\d+', string):
+        for match in re.finditer(r"\d+", string):
             numbers[row][match.span()] = match.group()
-        for match in re.finditer(r'[^.|\w]', string):
+        for match in re.finditer(r"[^.|\w]", string):
             symbols[(row, match.start())] = match.group()
 
     # Find numbers neighbouring symbols
@@ -44,8 +44,8 @@ if __name__ == '__main__':
         sum_part_numbers += sum(matches.values())
 
         # Add gear ratio if '*' symbol has exactly two neighbouring numbers
-        if symbol == '*' and len(matches) == 2:
+        if symbol == "*" and len(matches) == 2:
             sum_gear_ratios += prod(list(matches.values()))
 
-    print("Total sum of part numbers:", color_text(sum_part_numbers, Color.GREEN))
-    print("Total sum of gear ratios:", color_text(sum_gear_ratios, Color.GREEN))
+    print("Total sum of part numbers:", c(sum_part_numbers, Color.GREEN))
+    print("Total sum of gear ratios:", c(sum_gear_ratios, Color.GREEN))

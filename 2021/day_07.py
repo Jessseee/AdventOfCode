@@ -13,17 +13,19 @@
 # position of each crab. Crab submarines have limited fuel, so you need to find a way to make all of their
 # horizontal positions match while requiring them to spend as little fuel as possible.
 
-from helpers import *
+from aoc.helpers import *
 
-
-if __name__ == '__main__':
-    init_pos = import_input(',', int)
+if __name__ == "__main__":
+    init_pos = import_input(",", int)
 
     # First we figure out what the optimal position is for the crabs to align assuming linear fuel usage.
-    linear_fuel_use = min([sum([abs(pos - x) for pos in init_pos]) for x in range(max(init_pos)+1)])
-    print(f"It costs the crabs {color_text('{:,}'.format(linear_fuel_use), 31)} fuel to align, assuming linear fuel usage.")
+    linear_fuel_use = min([sum([abs(pos - x) for pos in init_pos]) for x in range(max(init_pos) + 1)])
+    print(f"It costs the crabs {c('{:,}'.format(linear_fuel_use), 31)} fuel to align, assuming linear fuel usage.")
 
     # After learning more about crab engineering we find out fuel usage is not linear but increases with n+1.
-    increasing_fuel_use = min([sum([abs(p - x) * (abs(p - x) + 1) // 2 for p in init_pos]) for x in range(max(init_pos) + 1)])
-    print(f"It costs the crabs {color_text('{:,}'.format(increasing_fuel_use), 31)} fuel to align, assuming increasing fuel usage.")
-
+    increasing_fuel_use = min(
+        [sum([abs(p - x) * (abs(p - x) + 1) // 2 for p in init_pos]) for x in range(max(init_pos) + 1)]
+    )
+    print(
+        f"It costs the crabs {c('{:,}'.format(increasing_fuel_use), 31)} fuel to align, assuming increasing fuel usage."
+    )

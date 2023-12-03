@@ -1,7 +1,8 @@
 # Day <DAY> of Advent of Code <YEAR>
 # <PUZZLE TITLE>
-from helpers import *
 from enum import Enum
+
+from aoc.helpers import *
 
 
 class Stream:
@@ -23,39 +24,40 @@ class Stream:
     def read(self):
         for char in self.stream:
             char_type = self.eval_char(char)
-            print(color_text(char, char_type), end='')
+            print(c(char, char_type), end="")
 
-        print(f"\nThe stream contains {color_text(self.group_count, 32)} groups "
-              f"and {color_text(self.garbage_count, 31)} garbage characters.\n")
+        print(
+            f"\nThe stream contains {c(self.group_count, 32)} groups "
+            f"and {c(self.garbage_count, 31)} garbage characters.\n"
+        )
 
     def eval_char(self, char):
         if self.ignore:
             self.ignore = False
             return self.CharType.IGNORED
-        if char == '!':
+        if char == "!":
             self.ignore = True
             return self.CharType.IGNORED
-        if char == '>':
+        if char == ">":
             self.garbage = False
             return self.CharType.GARBAGE
         if self.garbage:
             self.garbage_count += 1
             return self.CharType.PLAIN
-        if char == '<':
+        if char == "<":
             self.garbage = True
             return self.CharType.GARBAGE
-        if char == '}':
+        if char == "}":
             self.group_count += self.cur_group_depth
             self.cur_group_depth -= 1
             return self.CharType.GROUP
-        if char == '{':
+        if char == "{":
             self.cur_group_depth += 1
             return self.CharType.GROUP
         return self.CharType.OTHER
 
 
-if __name__ == '__main__':
-    streams = import_input('\n', example=False)
+if __name__ == "__main__":
+    streams = import_input("\n", example=False)
     for stream in streams:
         Stream(stream).read()
-

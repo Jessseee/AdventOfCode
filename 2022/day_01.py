@@ -6,16 +6,16 @@
 # it is important that they eat enough calories to survive the expedition. Our task is to make an
 # inventory of all the snacks the elves have brought and find which elves carry the most calories.
 
-from helpers import *
+from aoc.helpers import *
 
 
 def sum_calories(snacks):
-    return sum(map(int, snacks.split('\n')))
+    return sum(map(int, snacks.split("\n")))
 
 
-if __name__ == '__main__':
-    elves = import_input('\n\n', sum_calories, example=False)
+if __name__ == "__main__":
+    elves = import_input("\n\n", sum_calories, example=False)
     ranked = sorted(elves, reverse=True)
 
-    print(f"The top elf carries {color_text(ranked[0], Color.GREEN)} calories.")
-    print(f"The top three elves carry {color_text(sum(ranked[:3]), Color.GREEN)} calories.")
+    print(f"The top elf carries {c(ranked[0], Color.GREEN)} calories.")
+    print(f"The top three elves carry {c(sum(ranked[:3]), Color.GREEN)} calories.")

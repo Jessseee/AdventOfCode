@@ -1,7 +1,8 @@
 # Day <DAY> of Advent of Code <YEAR>
 # <PUZZLE TITLE>
-from helpers import *
 import re
+
+from aoc.helpers import *
 
 
 def check_tls(ip):
@@ -26,8 +27,8 @@ def check_ssl(ip):
     return any([(b, a) in bab for a, b in aba])
 
 
-if __name__ == '__main__':
-    inputs = import_input('\n', example=False)
+if __name__ == "__main__":
+    inputs = import_input("\n", example=False)
     valid_tls = 0
     valid_ssl = 0
     for ip in inputs:
@@ -35,4 +36,3 @@ if __name__ == '__main__':
         valid_ssl += check_ssl(ip)
     print("IPs that support TLS:", valid_tls)
     print("IPs that support SSL:", valid_ssl)
-

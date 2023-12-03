@@ -36,7 +36,7 @@
 # patterns we see, and then write down a single four digit output value. So, Each entry consists of ten unique
 # signal patterns, a | delimiter, and finally the four digit output value.
 
-from helpers import *
+from aoc.helpers import *
 
 
 def count_unique_length_digits(inputs):
@@ -54,18 +54,18 @@ def decode_output(inputs, rules):
                 if rule(set(digit), known_digits):
                     known_digits[key] = set(digit)
                     break
-            i = (i+1) % len(unique)
-        total += int(''.join([str(known_digits.index(set(digit))) for digit in output]))
+            i = (i + 1) % len(unique)
+        total += int("".join([str(known_digits.index(set(digit))) for digit in output]))
     return total
 
 
-if __name__ == '__main__':
-    inputs = [[el.split(' ') for el in line.split(' | ')] for line in import_input('\n')]
+if __name__ == "__main__":
+    inputs = [[el.split(" ") for el in line.split(" | ")] for line in import_input("\n")]
 
     # First, because the digits 1, 4, 7, and 8 each use a unique number of segments,
     # we should be able to tell which combinations of signals correspond to those digits.
     # So, in the output values, we count how many times digits 1, 4, 7, or 8 appear.
-    print(f'The sum of digits with an unique length is: {color_text(count_unique_length_digits(inputs), 32)}')
+    print(f"The sum of digits with an unique length is: {c(count_unique_length_digits(inputs), 32)}")
 
     # Through a little deduction, we should now be able to determine the remaining digits.
     rules = {
@@ -78,10 +78,8 @@ if __name__ == '__main__':
         9: lambda d, k: len(d) == 6,
         3: lambda d, k: len(d) == 5 and k[1] <= d,
         5: lambda d, k: len(d) == 5 and d <= k[6],
-        2: lambda d, k: len(d) == 5
+        2: lambda d, k: len(d) == 5,
     }
 
     # With the above rules we can find out each digit in the unique part of the entries and decode the output.
-    print(f"The sum of all decoded outputs is: {color_text('{:,}'.format(decode_output(inputs, rules)), 32)}")
-
-
+    print(f"The sum of all decoded outputs is: {c('{:,}'.format(decode_output(inputs, rules)), 32)}")

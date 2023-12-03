@@ -14,24 +14,25 @@
 #   (An octopus can only flash at most once per step.)
 # - Finally, any octopi that flashed during this step has its energy level reset to 0.
 
-from helpers import *
 import numpy as np
+
+from aoc.helpers import *
 
 
 def print_octopi(octopi):
     for row in octopi:
         for octopus in row:
             if octopus == 0 or octopus > 9:
-                print(color_text(str(octopus).zfill(2), 33), end=' ')
+                print(c(str(octopus).zfill(2), 33), end=" ")
             else:
-                print(color_text(str(octopus).zfill(2), 30), end=' ')
+                print(c(str(octopus).zfill(2), 30), end=" ")
         print()
     print()
 
 
 def flash(octopi, flashed):
     # Make a mask of all the flashes
-    flashes = np.zeros(octopi.shape, dtype=int, order='F')
+    flashes = np.zeros(octopi.shape, dtype=int, order="F")
     x_max, y_max = octopi.shape
     for (x, y), energy in np.ndenumerate(octopi):
         if energy > 9 and (x, y) not in flashed:
@@ -50,9 +51,9 @@ def flash(octopi, flashed):
     return octopi
 
 
-if __name__ == '__main__':
-    octopi = np.array([[int(x) for x in line] for line in import_input('\n', example=False)])
-    print('Initial state:')
+if __name__ == "__main__":
+    octopi = np.array([[int(x) for x in line] for line in import_input("\n", example=False)])
+    print("Initial state:")
     print_octopi(octopi)
 
     total_flashes = 0
@@ -77,6 +78,6 @@ if __name__ == '__main__':
         # Reset all octopy with energy > 10 to 0
         octopi = (octopi < 10) * octopi
 
-        print(f'After step {step}:')
-        print('total flashes:', total_flashes)
+        print(f"After step {step}:")
+        print("total flashes:", total_flashes)
         print_octopi(octopi)

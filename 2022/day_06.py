@@ -10,22 +10,20 @@
 # We need to find out when the first of these markers are send in the incoming
 # transmission.
 
-from helpers import *
+from aoc.helpers import *
 
 
 def find_marker(signal, marker_len):
     for char in range(marker_len - 1, len(signal)):
-        marker = set(signal[char-marker_len:char])
+        marker = set(signal[char - marker_len : char])
         if len(marker) == marker_len:
             return char, marker
 
 
-if __name__ == '__main__':
-    signals = import_input('\n', example=False)
+if __name__ == "__main__":
+    signals = import_input("\n", example=False)
     for signal in signals:
         chars, marker = find_marker(signal, 4)
-        print(f"The start-of-packet marker appears after "
-              f"{color_text(chars, Color.GREEN)} characters: {marker}")
+        print(f"The start-of-packet marker appears after " f"{c(chars, Color.GREEN)} characters: {marker}")
         chars, marker = find_marker(signal, 14)
-        print(f"The start-of-message marker appears after "
-              f"{color_text(chars, Color.GREEN)} characters: {marker}")
+        print(f"The start-of-message marker appears after " f"{c(chars, Color.GREEN)} characters: {marker}")

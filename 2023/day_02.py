@@ -9,8 +9,9 @@
 # to find out which games are possible given a number of cubes in the bag and
 # what the minimum number of cubes is that is required for a given game.
 
-from helpers import *
 import numpy as np
+
+from aoc.helpers import *
 
 
 def parse_game(line):
@@ -26,12 +27,12 @@ def validate_game(i, game):
     return i
 
 
-if __name__ == '__main__':
-    games = import_input('\n', parse_game, example=False)
+if __name__ == "__main__":
+    games = import_input("\n", parse_game, example=False)
     bag = dict(red=12, green=13, blue=14)
     valid_games = powers = 0
     for i, game in enumerate(games, start=1):
         valid_games += validate_game(i, game)
         powers += np.prod(list(game.values()))
-    print("The sum of the valid game IDs:", color_text(valid_games, Color.GREEN))
-    print("The power of the minimum cubes required each game:", color_text(powers, Color.GREEN))
+    print("The sum of the valid game IDs:", c(valid_games, Color.GREEN))
+    print("The power of the minimum cubes required each game:", c(powers, Color.GREEN))

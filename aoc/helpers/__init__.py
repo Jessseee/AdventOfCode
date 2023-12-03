@@ -1,3 +1,3 @@
-from .parse import *
 from .display import *
+from .parse import *
 from .vector import *

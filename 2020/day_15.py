@@ -1,6 +1,6 @@
 # Day 15 Advent of Code
 # Memory games
-from helpers import *
+from aoc.helpers import *
 
 
 def play_memory_game(start_numbers, number_of_turns):
@@ -16,10 +16,10 @@ def play_memory_game(start_numbers, number_of_turns):
             previous[number] = turn
             number = turn - last_seen
         turn += 1
-        print(f'{turn} \t {number}')
+        print(f"{turn} \t {number}")
 
 
-if __name__ == '__main__':
-    start_numbers = [int(i) for i in import_input().read().split(',')]
+if __name__ == "__main__":
+    start_numbers = [int(i) for i in import_input().read().split(",")]
     play_memory_game(start_numbers, 2020)
     play_memory_game(start_numbers, 30000000)

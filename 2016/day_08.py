@@ -1,13 +1,19 @@
 # Day <DAY> of Advent of Code <YEAR>
 # <PUZZLE TITLE>
-from helpers import *
-import numpy as np
 import re
 from dataclasses import dataclass
 
+import numpy as np
+
+from aoc.helpers import *
+
 
 class Screen:
-    def __init__(self, rows: int, cols: int,):
+    def __init__(
+        self,
+        rows: int,
+        cols: int,
+    ):
         self.screen = np.zeros((rows, cols), int)
 
     def __str__(self):
@@ -36,7 +42,7 @@ class Screen:
             self.apply_rotate(instruction)
 
     def apply_rect(self, rect: Rect):
-        self.screen[:rect.col, :rect.row] = 1
+        self.screen[: rect.col, : rect.row] = 1
 
     def apply_rotate(self, rotate: Rotate):
         if rotate.axis:
@@ -52,11 +58,11 @@ def parse_instructions(line):
         return Screen.Rect(int(x), int(y))
     else:
         axis, pos, value = re.findall(r"([x|y])=(\d+) by (\d+)", value)[0]
-        return Screen.Rotate(axis == 'y', int(pos), int(value))
+        return Screen.Rotate(axis == "y", int(pos), int(value))
 
 
-if __name__ == '__main__':
-    inputs = import_input('\n', parse_instructions, example=False)
+if __name__ == "__main__":
+    inputs = import_input("\n", parse_instructions, example=False)
     screen = Screen(6, 50)
     for instruction in inputs:
         screen.apply(instruction)

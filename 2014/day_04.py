@@ -1,4 +1,4 @@
-# Day <DAY> of Advent of Code <YEAR>
+# Day 4 of Advent of Code 2014
 # <PUZZLE TITLE>
 
 # <PUZZLE DESCRIPTION>

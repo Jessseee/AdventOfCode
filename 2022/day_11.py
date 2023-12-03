@@ -8,21 +8,22 @@
 # items most often while throwing them back and forth. Our job is to calculate the amount
 # of monkey business (product of times handling our items for the two most active monkeys).
 
-from helpers import *
-from copy import deepcopy
 import math
 import re
+from copy import deepcopy
+
+from aoc.helpers import *
 
 
 class Monkey:
     def __init__(self, id, starting_items, operation, test, if_true, if_false):
         self.id = id
-        self.held_items = list(map(int, starting_items.split(', ')))
+        self.held_items = list(map(int, starting_items.split(", ")))
         self.current_item = None
-        self.operation = lambda old: eval(operation.split('= ')[1])
-        self.divisor = int(test.split('by ')[1])
-        if_true = int(if_true.split('monkey ')[1])
-        if_false = int(if_false.split('monkey ')[1])
+        self.operation = lambda old: eval(operation.split("= ")[1])
+        self.divisor = int(test.split("by ")[1])
+        if_true = int(if_true.split("monkey ")[1])
+        if_false = int(if_false.split("monkey ")[1])
         self.test = lambda item: if_true if item % self.divisor == 0 else if_false
         self.inspected = 0
 
@@ -45,14 +46,14 @@ class Monkey:
 
 
 def parse_monkeys(data):
-    id = re.findall(r'Monkey (\d+):', data)[0]
-    properties = re.findall(r' +(.*): (.*)', data)
-    return Monkey(id=id, **{key.lower().replace(' ', '_'): value for key, value in properties})
+    id = re.findall(r"Monkey (\d+):", data)[0]
+    properties = re.findall(r" +(.*): (.*)", data)
+    return Monkey(id=id, **{key.lower().replace(" ", "_"): value for key, value in properties})
 
 
 def monkey_business(monkeys, reducer, rounds):
     for round in range(1, rounds + 1):
-        print(f"\rdoing monkey business ({round}/{rounds} rounds)", end='')
+        print(f"\rdoing monkey business ({round}/{rounds} rounds)", end="")
         for monkey in monkeys:
             for target in monkey.inspect(reducer):
                 item = monkey.throw()
@@ -61,8 +62,8 @@ def monkey_business(monkeys, reducer, rounds):
     print(f"\rMonkey business after {rounds} rounds: {result('{:,}'.format(monkey_business))}")
 
 
-if __name__ == '__main__':
-    monkeys = import_input('\n\n', parse_monkeys, example=False)
+if __name__ == "__main__":
+    monkeys = import_input("\n\n", parse_monkeys, example=False)
     divisor = math.prod([monkey.divisor for monkey in monkeys])
     monkey_business(deepcopy(monkeys), lambda item: item // 3, 20)
     monkey_business(deepcopy(monkeys), lambda item: item % divisor, 10000)
