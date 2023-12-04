@@ -13,18 +13,18 @@ from aoc.helpers import *
 
 if __name__ == "__main__":
     forest = np.array(import_input("\n", lambda line: [int(char) for char in line], example=False))
-    directions = Vector2D.directions()
+    directions = regular_directions()
 
     def look_in_direction(position, height, direction):
         visible = True
         trees = 0
-        neighbour = Vector2D(*position) - direction
-        while 0 <= neighbour.x < forest.shape[0] and 0 <= neighbour.y < forest.shape[1]:
+        neighbour = sub_tuples(position, direction)
+        while 0 <= neighbour[0] < forest.shape[0] and 0 <= neighbour[1] < forest.shape[1]:
             trees += 1
-            if forest[neighbour.x, neighbour.y] >= height:
+            if forest[neighbour[0], neighbour[1]] >= height:
                 visible = False
                 break
-            neighbour = neighbour - direction
+            neighbour = sub_tuples(neighbour, direction)
         return visible, trees
 
     def grade_tree(position, height):

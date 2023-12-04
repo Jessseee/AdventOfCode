@@ -5,8 +5,8 @@ from aoc.helpers import *
 
 class Spiral:
     def __init__(self, sum_neighbours=False):
-        self.cursor = Vector2D(0, 0)
-        self.direction = Vector2D(1, 0)
+        self.cursor = (0, 0)
+        self.direction = (1, 0)
         self.value = 1
         self.layer = 0
         self.matrix = {(0, 0): 1}
@@ -18,7 +18,7 @@ class Spiral:
             self.layer += 1
             len_side = 2 * self.layer
             for side in range(4):
-                self.direction.rotate90(clockwise=False)
+                self.direction = rotate90(self.direction, clockwise=False)
                 for steps in range(len_side - (side == 0)):
                     self.step()
                     if self.value >= target:
@@ -26,17 +26,17 @@ class Spiral:
         return self.distance()
 
     def distance(self):
-        return abs(self.cursor.x) + abs(self.cursor.y)
+        return abs(self.cursor[0]) + abs(self.cursor[1])
 
     def step(self):
-        self.cursor += self.direction
+        self.cursor = add_tuples(self.cursor, self.direction)
         self.value = sum(self.get_neighbours()) if self.sum_neighbours else self.value + 1
         self.matrix[self.cursor] = self.value
 
     def get_neighbours(self):
         neighbours = []
-        for x in range(self.cursor.x - 1, self.cursor.x + 2):
-            for y in range(self.cursor.y - 1, self.cursor.y + 2):
+        for x in range(self.cursor[0] - 1, self.cursor[1] + 2):
+            for y in range(self.cursor[0] - 1, self.cursor[1] + 2):
                 if (x, y) != self.cursor:
                     neighbours.append(self.matrix.get((x, y)) or 0)
         return neighbours
@@ -45,7 +45,6 @@ class Spiral:
 if __name__ == "__main__":
     number = int(import_input(example=False).read())
     print(Spiral(sum_neighbours=False).traverse(number))
-    print(Spiral(sum_neighbours=True).traverse(number))
 
 
 # Step 1: Linear increasing spiral matrix:
