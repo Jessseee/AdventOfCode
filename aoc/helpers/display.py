@@ -31,7 +31,7 @@ def plot_3d_array(array):
     plt.show()
 
 
-Color = Enum("Color", ["BLACK", "RED", "GREEN", "ORANGE", "BLUE", "PURPLE", "CYAN", "GREY"], start=30)
+Color = Enum("Color", ["WHITE", "BLACK", "RED", "GREEN", "ORANGE", "BLUE", "PURPLE", "CYAN", "GREY"], start=29)
 Highlight = Enum("Highlight", ["BLACK", "RED", "GREEN", "ORANGE", "BLUE", "PURPLE", "CYAN", "GREY"], start=40)
 Effect = Enum("Effect", zip(["BOLD", "ITALIC", "STRIKE", "UNDERLINE"], [1, 3, 9, 21]))
 
