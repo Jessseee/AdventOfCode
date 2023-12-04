@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from datetime import datetime
+from importlib.resources import files, as_file
 from os import PathLike
 from time import sleep
 
@@ -107,8 +108,9 @@ def init_day(year: str, day: str, config: Config):
     if os.path.exists(puzzle_file):
         print(c(f"Solution file already at " f"./{year}/{puzzle_file}", Color.ORANGE))
     else:
-        with open("day_template.py", "r") as file:
-            data = file.read().replace("<YEAR>", str(year)).replace("<DAY>", str(day))
+        template_file = files("aoc").joinpath("day_template.py")
+        with as_file(template_file) as file:
+            data = file.open("r").read().replace("<YEAR>", str(year)).replace("<DAY>", str(day))
         with open(puzzle_file, "w") as file:
             file.write(data)
 
