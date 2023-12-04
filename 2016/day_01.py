@@ -4,19 +4,22 @@ from aoc.helpers import *
 
 if __name__ == "__main__":
     instructions = import_input(", ", example=False)
-    direction = Vector2D(0, 1)
-    position = Vector2D.zeros()
+    direction = (0, 1)
+    position = (0, 0)
     visited = []
     visited_twice = None
     for instruction in instructions:
+        print(direction)
         rotate, distance = instruction[0], int("".join(instruction[1:]))
-        direction = direction.rotate90(rotate == "R")
+        direction = rotate90(direction, clockwise=(rotate == "R"))
+        print(rotate, distance, direction)
         for _ in range(distance):
-            position += direction
+            position = add_tuples(position, direction)
             if position in visited:
-                visited_twice = position.dist_manhattan()
+                visited_twice = manhattan_distance(position)
             if not visited_twice:
                 visited.append(position)
-    final_position = position.dist_manhattan()
-    print(f"The first position visited twice is {c(visited_twice, Color.GREEN)} blocks away.")
+        print(position)
+    final_position = manhattan_distance(position)
     print(f"The final position of the instructions is {c(final_position, Color.GREEN)} blocks away.")
+    print(f"The first position visited twice is {c(visited_twice, Color.GREEN)} blocks away.")

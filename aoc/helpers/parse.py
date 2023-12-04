@@ -1,9 +1,7 @@
-# Some utility function for importing and parsing data.
 import os
 import re
 import sys
-from typing import Any, Callable
-from typing.io import IO
+from typing import Any, Callable, IO
 
 
 def import_input(split: str = None, parser: Callable[[str], Any] = None, example: bool = False) -> list | IO:
@@ -39,7 +37,7 @@ def replace_chr(i, char, string):
     :param str string: String to replace character in.
     :return: String with character replaced.
     """
-    return string[:i] + char + string[i + 1 :]
+    return string[:i] + char + string[i + 1:]
 
 
 def replace_chrs(span, char, string):

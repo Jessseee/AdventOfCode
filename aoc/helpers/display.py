@@ -1,4 +1,3 @@
-# some utility function for displaying data.
 from enum import Enum
 
 import matplotlib.pyplot as plt

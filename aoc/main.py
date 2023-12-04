@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from datetime import datetime
-from importlib.resources import files, as_file
+from importlib.resources import as_file, files
 from os import PathLike
 from time import sleep
 

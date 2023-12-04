@@ -16,7 +16,7 @@ keypad_two = """
   D  
 """
 
-dirs = {"U": Matrix(-1, 0), "R": Matrix(0, 1), "D": Matrix(1, 0), "L": Matrix(0, -1)}
+dirs = {"U": (-1, 0), "R": (0, 1), "D": (1, 0), "L": (0, -1)}
 
 
 def parse_keypad(keypad):
@@ -31,7 +31,7 @@ def get_keypad_code(keypad, inputs, start_pos):
     pos = start_pos
     for line in inputs:
         for key in line:
-            new_pos = pos + dirs[key]
+            new_pos = add_tuples(pos, dirs[key])
             if 0 <= new_pos[0] <= len(keypad) - 1 and 0 <= new_pos[1] <= len(keypad[0]) - 1:
                 if keypad[new_pos[0]][new_pos[1]] != " ":
                     pos = new_pos
@@ -42,5 +42,5 @@ def get_keypad_code(keypad, inputs, start_pos):
 if __name__ == "__main__":
     inputs = import_input("\n", lambda x: [c for c in x], example=False)
 
-    get_keypad_code(keypad_one, inputs, Matrix(1, 1))
-    get_keypad_code(keypad_two, inputs, Matrix(2, 0))
+    get_keypad_code(keypad_one, inputs, (1, 1))
+    get_keypad_code(keypad_two, inputs, (2, 0))
