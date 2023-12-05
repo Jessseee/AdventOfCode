@@ -57,10 +57,7 @@ def rotate90(vector: tuple[int, int], clockwise: bool = True) -> tuple[int, int]
     return (vector[1], -vector[0]) if clockwise else (-vector[1], vector[0])
 
 
-def regular_directions(
-        as_dict=False,
-        names=("u", "r", "d", "l")
-) -> list[tuple[int, int]]:
+def regular_directions(as_dict=False, names=("u", "r", "d", "l")) -> list[tuple[int, int]]:
     """
     Get the four directions in clockwise order.
 
@@ -73,9 +70,8 @@ def regular_directions(
 
 
 def cardinal_directions(
-        as_dict=False,
-        names=("n", "ne", "se", "s", "sw", "nw")
-) -> dict[str: tuple[int, int]] | list[tuple[int, int]]:
+    as_dict=False, names=("n", "ne", "se", "s", "sw", "nw")
+) -> dict[str : tuple[int, int]] | list[tuple[int, int]]:
     """
     Get all eight cardinal directions in clockwise order.
 
@@ -88,9 +84,8 @@ def cardinal_directions(
 
 
 def hexagonal_directions(
-        as_dict=False,
-        names=("n", "ne", "se", "s", "sw", "nw")
- ) -> dict[str: tuple[int, int]] | list[tuple[int, int]]:
+    as_dict=False, names=("n", "ne", "se", "s", "sw", "nw")
+) -> dict[str : tuple[int, int]] | list[tuple[int, int]]:
     """
     Get all six hexagonal directions in clockwise order.
     source: https://www.redblobgames.com/grids/hexagons/#neighbors-axial

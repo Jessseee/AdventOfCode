@@ -10,23 +10,21 @@ import yaml
 
 from .helpers import *
 
-christmas = rf"""
-            .-----_
-           /  /  /\|
-         / /  |  \ {c('*', Color.ORANGE)}
-        /  /    \ \      {c(' A D V E N T ', Highlight.ORANGE)}
-       / /  /   \  \     {c(' O F ', Highlight.GREEN)}{c('C O D E ', Highlight.RED)}
-     ./~~~~~~~~~~~~~\.
-    ( .", ^. ~".  '.~ )
-     '~~~~~~~~~~~~~~~'
-
-"""
+christmas = [
+    c("            .-----_", Color.RED),
+    c("           /  /  /\\|", Color.RED),
+    c("         / /  |  \\ ", Color.RED) + c("*", Color.ORANGE),
+    c("        /  /    \\ \\    ", Color.RED) + c(" A D V E N T ", Highlight.ORANGE),
+    c("       / /  /   \\  \\   ", Color.RED) + c(" O F ", Highlight.GREEN) + c("C O D E ", Highlight.RED),
+    c("     ./~~~~~~~~~~~~~\\.", Color.WHITE),
+    c('    ( .", ^. ~".  \'.~ )', Color.WHITE),
+    c("     '~~~~~~~~~~~~~~~'", Color.WHITE),
+]
 
 
 @dataclass
 class Config:
     SESSION_ID: str
-    URL: str = "https://adventofcode.com"
     MAX_RECONNECT_ATTEMPT: int = 3
 
     @staticmethod
@@ -55,14 +53,14 @@ def download_input(year: str, day: str, config: Config):
         try:
             print("Getting input...")
             with requests.get(
-                url=f"{config.URL}/{year}/day/{day}/input",
+                url=f"https://adventofcode.com/{year}/day/{day}/input",
                 cookies={"session": config.SESSION_ID},
             ) as response:
                 if response.ok:
                     data = response.text
                     with open(f"{year}/input/input_day_{day:02d}.txt", "w+") as f:
                         f.write(data.rstrip("\n"))
-                    with open(f"{year}/input/example_input_day_{day:02d}.txt", "w+") as f:
+                    with open(f"{year}/input/example_input_day_{day:02d}.txt", "w+") as _:
                         pass
                 else:
                     print(f"Server:\t" + c(f"Error {response.status_code}", 31))
@@ -99,21 +97,24 @@ def init_day(year: str, day: str, config: Config):
     os.makedirs(f"{year}/input", exist_ok=True)
 
     input_file = f"{year}/input/input_day_{day:02d}.txt"
+    example_input_file = f"{year}/input/example_input_day_{day:02d}.txt"
     if os.path.exists(input_file):
-        print(c(f"Input file already at " f"./{year}/input/{input_file}", Color.ORANGE))
+        print(c(f"Input file already at {input_file}", Color.ORANGE))
     else:
         download_input(year, day, config)
 
     puzzle_file = f"{year}/day_{day:02d}.py"
     if os.path.exists(puzzle_file):
-        print(c(f"Solution file already at " f"./{year}/{puzzle_file}", Color.ORANGE))
+        print(c(f"Solution file already at {puzzle_file}", Color.ORANGE))
     else:
         template_file = files("aoc").joinpath("day_template.py")
         with as_file(template_file) as file:
             data = file.open("r").read().replace("<YEAR>", str(year)).replace("<DAY>", str(day))
         with open(puzzle_file, "w") as file:
             file.write(data)
-
+    os.system(f"pycharm {input_file}")
+    os.system(f"pycharm {example_input_file}")
+    os.system(f"pycharm {puzzle_file}")
     print(c(f"Let's get started on day {day} of AdventofCode {year}!", Color.GREEN))
 
 
@@ -138,7 +139,7 @@ def init(date: datetime, watch: bool, config: PathLike):
 
     # Print fun graphic
     for line in christmas:
-        print(line, end="")
+        print(line)
 
     # Initialise puzzle from a previous year
     if date is not None:
