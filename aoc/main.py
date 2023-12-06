@@ -1,3 +1,4 @@
+import webbrowser
 from dataclasses import dataclass
 from datetime import datetime
 from importlib.resources import as_file, files
@@ -60,8 +61,8 @@ def download_input(year: str, day: str, config: Config):
                     data = response.text
                     with open(f"{year}/input/input_day_{day:02d}.txt", "w+") as f:
                         f.write(data.rstrip("\n"))
-                    with open(f"{year}/input/example_input_day_{day:02d}.txt", "w+") as _:
-                        pass
+                    with open(f"{year}/input/example_input_day_{day:02d}.txt", "w+") as f:
+                        f.write(" ")
                 else:
                     print(f"Server:\t" + c(f"Error {response.status_code}", 31))
             done = True
@@ -124,16 +125,18 @@ def cli():
 
 
 @cli.command(help="Download input and initialize solution file for AdventOfCode puzzle.")
-@click.option("--date", type=click.DateTime(), default=datetime.today())
+@click.option("--date", type=click.DateTime(formats=["%Y-%d", "%Y%d"]), default=datetime.today())
 @click.option("--watch", is_flag=True, default=False)
 @click.option("--config", default="config.yaml")
-def init(date: datetime, watch: bool, config: PathLike):
+@click.option("--browser", is_flag=True, default=False)
+def init(date: datetime, watch: bool, config: PathLike, browser: bool) -> None:
     """
     Initialize an Advent of Code puzzle and download the input file.
 
     :param date: Date of AoC puzzle to initialize.
     :param watch: Whether to wait for today's puzzle to come online.
     :param config: Config file to use for initialisation.
+    :param browser: Whether to open browser on init.
     """
     config = Config.parse(config)
 
@@ -149,6 +152,8 @@ def init(date: datetime, watch: bool, config: PathLike):
             print(c("Advent of code runs from 1 Dec until 25 Dec.", Color.RED))
         else:
             init_day(date.year, date.day, config)
+            if browser:
+                webbrowser.open(f"https://adventofcode.com/{date.year}/day/{date.day}")
 
     # Initialise today's puzzle
     else:
