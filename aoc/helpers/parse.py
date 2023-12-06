@@ -28,7 +28,7 @@ def import_input(split: str = None, parser: Callable[[str], Any] = None, example
     return inputs
 
 
-def replace_chr(i, char, string):
+def replace_chr(i: int, char: str, string: str) -> str:
     """
     Replace a character in a string.
 
@@ -40,13 +40,23 @@ def replace_chr(i, char, string):
     return string[:i] + char + string[i + 1 :]
 
 
-def replace_chrs(span, char, string):
+def replace_chrs(span: list[int, int], char: str, string: str) -> str:
     """
     Replace a span of characters in a string.
 
-    :param list span: Start and end of span to replace.
-    :param str char: Character(s) to place in string.
-    :param str string: String to replace characters in.
+    :param span: Start and end of span to replace.
+    :param char: Character(s) to place in string.
+    :param string: String to replace characters in.
     :return: String with characters replaced.
     """
     return string[: span[0]] + char + string[span[1] :]
+
+
+def parse_integers(string: str) -> list[int]:
+    """
+    Parse all integers in a string.
+
+    :param string: The string to parse.
+    :return: A list of the parsed integers.
+    """
+    return list(map(int, re.findall(r"\d+", string)))
