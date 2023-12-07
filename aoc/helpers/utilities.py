@@ -110,3 +110,16 @@ def manhattan_distance(a: tuple[int, ...], b: tuple[int, ...] = None) -> int:
     if len(a) != len(b):
         raise ValueError("To calculate distance 'a' and 'b' must be the same length.")
     return sum([abs(p - q) for p, q in zip(a, b)])
+
+
+class safe_list(list):
+    """
+    Subclass of build-in list with safe get() method.
+    """
+
+    def get(self, index: int, default=None):
+        """Return the value for key if key is in the dictionary, else default."""
+        try:
+            return self.__getitem__(index)
+        except IndexError:
+            return default
