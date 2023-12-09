@@ -59,4 +59,4 @@ def parse_integers(string: str) -> list[int]:
     :param string: The string to parse.
     :return: A list of the parsed integers.
     """
-    return list(map(int, re.findall(r"\d+", string)))
+    return list(map(int, re.findall(r"[+-]?\d+", string)))
