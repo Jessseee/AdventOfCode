@@ -6,10 +6,11 @@ readme="README.md"
 requires-python = ">=3.10"
 authors = [
     { name="Jessseee" },
+    { name="JonaMata" },
 ]
 
 [options]
-pakcages = ['aoc', 'aoc.helpers']
+packages = ['aoc', 'aoc.helpers']
 
 [project.scripts]
 aoc = "aoc.main:cli"
