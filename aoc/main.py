@@ -113,9 +113,7 @@ def init_day(year: str, day: str, config: Config):
             data = file.open("r").read().replace("<YEAR>", str(year)).replace("<DAY>", str(day))
         with open(puzzle_file, "w") as file:
             file.write(data)
-    os.system(f"pycharm {input_file}")
-    os.system(f"pycharm {example_input_file}")
-    os.system(f"pycharm {puzzle_file}")
+    os.system(f"pycharm {input_file} {example_input_file} {puzzle_file}")
     print(c(f"Let's get started on day {day} of AdventofCode {year}!", Color.GREEN))
 
 
