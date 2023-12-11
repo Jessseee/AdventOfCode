@@ -85,7 +85,7 @@ def parse_path(path):
 
 
 if __name__ == "__main__":
-    paths = import_input("\n", parse_path, example=True)
+    paths = import_input("\n", parse_path)
 
     cave = Cave(paths, False)
     print(f"{cave.drop_sand()} grains of sand have come to rest (without floor).")

@@ -23,5 +23,5 @@ def parse_input(line):
 
 
 if __name__ == "__main__":
-    inputs = import_input("\n", parse_input, example=False)
+    inputs = import_input("\n", parse_input)
     print("The sum of all of the calibration values:", sum(inputs))

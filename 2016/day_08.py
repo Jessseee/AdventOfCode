@@ -62,7 +62,7 @@ def parse_instructions(line):
 
 
 if __name__ == "__main__":
-    inputs = import_input("\n", parse_instructions, example=False)
+    inputs = import_input("\n", parse_instructions)
     screen = Screen(6, 50)
     for instruction in inputs:
         screen.apply(instruction)

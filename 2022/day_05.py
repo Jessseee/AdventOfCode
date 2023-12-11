@@ -80,6 +80,6 @@ class StackMover9001(StackMover9000):
 
 
 if __name__ == "__main__":
-    crates, instructions = import_input("\n\n", example=True)
+    crates, instructions = import_input("\n\n")
     StackMover9000(crates, instructions).move()
     StackMover9001(crates, instructions).move()

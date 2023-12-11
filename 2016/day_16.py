@@ -5,7 +5,7 @@ import numpy as np
 from aoc.helpers import *
 
 if __name__ == "__main__":
-    data = input_data = np.array(import_input("", int, example=False), dtype=bool)
+    data = input_data = np.array(import_input("", int), dtype=bool)
     disk_size = 35651584
 
     while len(data) < disk_size:

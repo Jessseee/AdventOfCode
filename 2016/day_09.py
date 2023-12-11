@@ -41,7 +41,7 @@ def calc_decompressed_size(file, v2=False):
 
 
 if __name__ == "__main__":
-    inputs = import_input("\n", example=False)
+    inputs = import_input("\n")
     for file in inputs:
         decompressed_v1 = decompress(file)
         # print("input:\n", file)

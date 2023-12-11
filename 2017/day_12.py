@@ -33,7 +33,7 @@ class Network:
 
 
 if __name__ == "__main__":
-    connections = import_input("\n", example=False)
+    connections = import_input("\n")
     network = Network(connections)
     print(f"There are {c(len(network.find_group(0)), 32)} programs connected to the program with ID 0.")
     print(f"There are {c(len(network.find_groups()), 32)} unconnected groups in the network.")

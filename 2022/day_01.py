@@ -14,7 +14,7 @@ def sum_calories(snacks):
 
 
 if __name__ == "__main__":
-    elves = import_input("\n\n", sum_calories, example=False)
+    elves = import_input("\n\n", sum_calories)
     ranked = sorted(elves, reverse=True)
 
     print(f"The top elf carries {c(ranked[0], Color.GREEN)} calories.")

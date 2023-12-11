@@ -37,7 +37,7 @@ def part2(inputs):
 
 if __name__ == "__main__":
     inputs = []
-    for instruction in import_input("\n", example=False):
+    for instruction in import_input("\n"):
         state, start, end = re.findall(r".*(toggle|on|off).*( [0-9]+,[0-9]+).*( [0-9]+,[0-9]+)", instruction)[0]
         inputs.append([state, tuple(map(int, start.split(","))), tuple(map(int, end.split(",")))])
 

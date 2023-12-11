@@ -45,7 +45,7 @@ def compare_items(left, right, depth=0):
 
 
 if __name__ == "__main__":
-    packet_pairs = import_input("\n\n", parse_packets, example=True)
+    packet_pairs = import_input("\n\n", parse_packets)
     correct_packets = sum([i + 1 for i, (left, right) in enumerate(packet_pairs) if compare_items(left, right) == -1])
     print(f"Number of packets in the right order: {result(correct_packets)}")
 

@@ -40,7 +40,7 @@ def get_keypad_code(keypad, inputs, start_pos):
 
 
 if __name__ == "__main__":
-    inputs = import_input("\n", lambda x: [c for c in x], example=False)
+    inputs = import_input("\n", lambda x: [c for c in x])
 
     get_keypad_code(keypad_one, inputs, (1, 1))
     get_keypad_code(keypad_two, inputs, (2, 0))

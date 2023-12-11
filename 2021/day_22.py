@@ -47,7 +47,7 @@ def reboot_reactor(instructions, limit):
 
 
 if __name__ == "__main__":
-    instructions = import_input("\n", example=True)
+    instructions = import_input("\n")
     limit = [(-50, 50)] * 3
     reboot_reactor(instructions, limit)
     # reboot_reactor(instructions, None)

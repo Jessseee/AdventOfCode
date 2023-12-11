@@ -31,7 +31,7 @@ def reallocate(init_state):
 
 
 if __name__ == "__main__":
-    init_state = np.array(import_input("\t", int, example=False))
+    init_state = np.array(import_input("\t", int))
 
     cycles, state = reallocate_till_known_state(init_state)
     print(f"It took {c(cycles, 32)} cycles to reallocate memory. Final state: {tuple(state)}")

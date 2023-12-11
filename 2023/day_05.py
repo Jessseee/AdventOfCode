@@ -41,7 +41,7 @@ def create_mappings(inputs):
 
 
 if __name__ == "__main__":
-    inputs = import_input("\n\n", example=False)
+    inputs = import_input("\n\n")
     seeds = get_numbers(inputs.pop(0))
     mappings = create_mappings(inputs)
 

@@ -11,7 +11,7 @@ def duplicates(items):
 
 
 if __name__ == "__main__":
-    inputs = import_input("\n", example=False)
+    inputs = import_input("\n")
 
     words = [passphrase.split(" ") for passphrase in inputs]
     num_valid = sum(map(duplicates, words))

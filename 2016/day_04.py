@@ -26,7 +26,7 @@ def decrypt_name(encrypted_name, shift):
 
 
 if __name__ == "__main__":
-    inputs = import_input("\n", parse, example=False)
+    inputs = import_input("\n", parse)
 
     score = 0
     north_pole_room = ()

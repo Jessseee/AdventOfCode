@@ -76,7 +76,7 @@ def plot_map(heightmap):
 
 
 if __name__ == "__main__":
-    heightmap = np.array(import_input("\n", list, example=False))
+    heightmap = np.array(import_input("\n", list))
     heightmap, start, target = parse_height_map(heightmap)
 
     linked_nodes, destination = find_path(heightmap, start, [target], lambda a, b: b > a + 1)

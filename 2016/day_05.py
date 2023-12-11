@@ -5,7 +5,7 @@ from hashlib import md5
 from aoc.helpers import *
 
 if __name__ == "__main__":
-    input = import_input("\n", example=False)[0]
+    input = import_input("\n")[0]
     password = ["_"] * 8
     print(f"\r{''.join(password)}", end="")
 

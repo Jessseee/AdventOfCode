@@ -92,7 +92,7 @@ def resolve_tree(inputs):
 
 
 if __name__ == "__main__":
-    inputs = import_input("\n", example=False)
+    inputs = import_input("\n")
 
     root_directory = resolve_tree(inputs)
     root_directory.resolve_subdir_size()

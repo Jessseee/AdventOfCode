@@ -14,7 +14,7 @@ new_rules = [re.compile(r"^.*(..).*\1.*$"), re.compile(r"^.*(.).\1.*$")]
 
 
 if __name__ == "__main__":
-    inputs = import_input("\n", example=False)
+    inputs = import_input("\n")
     nice_strings = [line for line in inputs if all([bool(rule.match(line)) for rule in rules])]
     new_nice_strings = [line for line in inputs if all([bool(rule.match(line)) for rule in new_rules])]
     for line in inputs:

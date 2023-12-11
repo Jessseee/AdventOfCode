@@ -51,7 +51,7 @@ class Instruction:
 
 
 if __name__ == "__main__":
-    inputs = import_input("\n", example=False)
+    inputs = import_input("\n")
     memory = defaultdict(lambda: 0)
     highest = 0
     for line in inputs:

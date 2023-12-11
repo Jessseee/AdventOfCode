@@ -38,7 +38,7 @@ def fold(side1, side2, half):
 
 
 if __name__ == "__main__":
-    dots, instructions = import_input("\n\n", example=False)
+    dots, instructions = import_input("\n\n")
     dots = np.array([tuple(map(int, line.split(","))) for line in dots.split("\n")])
     instructions = [(d[-1], int(i)) for d, i in [line.split("=") for line in instructions.split("\n")]]
     paper_shape = (max(dots[:, 1]) + 1, max(dots[:, 0]) + 1)

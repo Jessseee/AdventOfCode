@@ -61,7 +61,7 @@ class Hand:
 
 
 if __name__ == "__main__":
-    plays = import_input("\n", str.split, example=False)
+    plays = import_input("\n", str.split)
 
     hands = [Hand(cards, bid) for cards, bid in plays]
     winnings = sum([hand.bid * i for i, hand in enumerate(sorted(hands), 1)])

@@ -63,7 +63,7 @@ def monkey_business(monkeys, reducer, rounds):
 
 
 if __name__ == "__main__":
-    monkeys = import_input("\n\n", parse_monkeys, example=False)
+    monkeys = import_input("\n\n", parse_monkeys)
     divisor = math.prod([monkey.divisor for monkey in monkeys])
     monkey_business(deepcopy(monkeys), lambda item: item // 3, 20)
     monkey_business(deepcopy(monkeys), lambda item: item % divisor, 10000)

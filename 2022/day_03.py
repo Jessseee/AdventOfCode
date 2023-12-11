@@ -48,7 +48,7 @@ def compare_rucksacks(all_rucksacks, n=1):
 
 
 if __name__ == "__main__":
-    rucksacks = import_input("\n", example=False)
+    rucksacks = import_input("\n")
 
     print("Score of common items in rucksack compartments: ", c(compare_rucksacks(rucksacks, 1), Color.GREEN))
 

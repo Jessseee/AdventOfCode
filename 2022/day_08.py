@@ -12,7 +12,7 @@ import numpy as np
 from aoc.helpers import *
 
 if __name__ == "__main__":
-    forest = np.array(import_input("\n", lambda line: [int(char) for char in line], example=False))
+    forest = np.array(import_input("\n", lambda line: [int(char) for char in line]))
     directions = regular_directions()
 
     def look_in_direction(position, height, direction):

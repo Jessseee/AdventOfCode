@@ -42,7 +42,7 @@ if __name__ == "__main__":
     all_caves = {}
 
     # Let's create a (reverse) mapping of all the connected caves
-    for con in import_input("\n", example=False):
+    for con in import_input("\n"):
         cave, connected = con.split("-")
         if not all_caves.get(cave):
             all_caves[cave] = [connected]

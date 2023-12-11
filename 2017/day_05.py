@@ -16,7 +16,7 @@ def traverse_instructions(instructions, increment):
 
 
 if __name__ == "__main__":
-    instructions = import_input("\n", int, example=False)
+    instructions = import_input("\n", int)
 
     steps = traverse_instructions(instructions.copy(), lambda x: 1)
     print(f"It took {c('{:,}'.format(steps), 32)} steps to escape the maze with simple jump increments.")

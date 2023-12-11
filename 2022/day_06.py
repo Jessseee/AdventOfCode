@@ -21,7 +21,7 @@ def find_marker(signal, marker_len):
 
 
 if __name__ == "__main__":
-    signals = import_input("\n", example=False)
+    signals = import_input("\n")
     for signal in signals:
         chars, marker = find_marker(signal, 4)
         print(f"The start-of-packet marker appears after " f"{c(chars, Color.GREEN)} characters: {marker}")

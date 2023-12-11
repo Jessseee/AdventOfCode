@@ -24,6 +24,6 @@ def extrapolate(array):
 
 
 if __name__ == "__main__":
-    histories = import_input("\n", parse_integers, example=False)
+    histories = import_input("\n", parse_integers)
     print("Sum of extrapolated history data:", sum(extrapolate(history) for history in histories))
     print("Sum of backwards extrapolated history data:", sum(extrapolate(history[::-1]) for history in histories))

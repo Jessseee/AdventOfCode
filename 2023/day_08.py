@@ -33,7 +33,7 @@ def steps_for_paths(start_nodes, target, instructions):
 
 
 if __name__ == "__main__":
-    _instructions, _network = import_input("\n\n", example=False)
+    _instructions, _network = import_input("\n\n")
     instructions = [instruction == "R" for instruction in _instructions]
     network = {key: value for key, *value in [re.findall(r"\w{3}", node) for node in _network.split("\n")]}
 

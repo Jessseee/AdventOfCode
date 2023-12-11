@@ -32,7 +32,7 @@ def get_pairs(line):
 
 
 if __name__ == "__main__":
-    pairs = import_input("\n", get_pairs, example=False)
+    pairs = import_input("\n", get_pairs)
     contained = 0
     overlapped = 0
     for pair in pairs:

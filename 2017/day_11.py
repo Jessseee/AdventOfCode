@@ -10,7 +10,7 @@ def distance(pos):
 directions = hexagonal_directions(as_dict=True)
 
 if __name__ == "__main__":
-    paths = import_input("\n", example=False)
+    paths = import_input("\n")
     for path in paths:
         path = path.split(",")
         position = (0, 0)

@@ -49,7 +49,7 @@ def dijkstra(risk_map):
 
 
 if __name__ == "__main__":
-    risk_map = np.array([list(map(int, line)) for line in import_input("\n", example=True)])
+    risk_map = np.array([list(map(int, line)) for line in import_input("\n")])
     large_risk_map = np.array(
         [[(risk - 1 + dx + dy) % 9 + 1 for dx in range(5) for risk in row] for dy in range(5) for row in risk_map]
     )

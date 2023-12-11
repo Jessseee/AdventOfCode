@@ -9,7 +9,7 @@ def parse_discs(line):
 
 
 if __name__ == "__main__":
-    discs = import_input("\n", parse_discs, example=False)
+    discs = import_input("\n", parse_discs)
     discs.append([len(discs) + 1, 11, 0])
     i = 0
     while any([(i + disc[0] + disc[2]) % disc[1] for disc in discs]):

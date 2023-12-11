@@ -23,10 +23,10 @@ def num_wins(a, b):
 
 
 if __name__ == "__main__":
-    races = list(zip(*import_input("\n", parse_integers, example=False)))
+    races = list(zip(*import_input("\n", parse_integers)))
     wins = np.prod([num_wins(time, dist) for time, dist in races])
     print("Product of possible number of wins for multiple races:", c(wins, Color.GREEN))
 
-    time, dist = list(import_input("\n", lambda x: int("".join(x.split()[1:])), example=False))
+    time, dist = list(import_input("\n", lambda x: int("".join(x.split()[1:]))))
     wins = num_wins(time, dist)
     print("Number of wins for single race:", c(wins, Color.GREEN))

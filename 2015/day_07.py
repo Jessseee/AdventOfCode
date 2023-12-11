@@ -14,7 +14,7 @@ operators = {
 
 
 if __name__ == "__main__":
-    inputs = [line.split(" -> ") for line in import_input("\n", example=False)]
+    inputs = [line.split(" -> ") for line in import_input("\n")]
     memory = defaultdict(int)
     for inst, addr in inputs:
         inst = inst.split(" ")

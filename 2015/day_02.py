@@ -3,7 +3,7 @@
 from aoc.helpers import *
 
 if __name__ == "__main__":
-    inputs = [tuple(map(int, dimensions.split("x"))) for dimensions in import_input("\n", example=False)]
+    inputs = [tuple(map(int, dimensions.split("x"))) for dimensions in import_input("\n")]
     wrapping_paper = 0
     ribbon = 0
     for l, w, h in inputs:

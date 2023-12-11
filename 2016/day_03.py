@@ -16,7 +16,7 @@ def count_correct_triangles(triangles):
 
 
 if __name__ == "__main__":
-    inputs = np.array(import_input("\n", lambda line: list(map(int, re.findall(r"\d+", line))), example=False))
+    inputs = np.array(import_input("\n", lambda line: list(map(int, re.findall(r"\d+", line)))))
     count_correct_triangles(inputs)
 
     inputs = inputs.transpose().flatten()

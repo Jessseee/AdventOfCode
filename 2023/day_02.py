@@ -28,7 +28,7 @@ def validate_game(i, game):
 
 
 if __name__ == "__main__":
-    games = import_input("\n", parse_game, example=False)
+    games = import_input("\n", parse_game)
     bag = dict(red=12, green=13, blue=14)
     valid_games = powers = 0
     for i, game in enumerate(games, start=1):

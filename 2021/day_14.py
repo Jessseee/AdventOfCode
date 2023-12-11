@@ -33,7 +33,7 @@ def print_results(counter, step):
 
 
 if __name__ == "__main__":
-    template, insert_pair = import_input("\n\n", example=False)
+    template, insert_pair = import_input("\n\n")
     template = list(template)
     insert_pairs = {k: v for k, v in [pair.split(" -> ") for pair in insert_pair.split("\n")]}
 

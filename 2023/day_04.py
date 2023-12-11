@@ -23,7 +23,7 @@ def count_cards(key, card_dict, acc=1):
 
 if __name__ == "__main__":
     score, cards = 0, {}
-    for i, (numbers, winning) in enumerate(import_input("\n", parse_card, example=False), start=1):
+    for i, (numbers, winning) in enumerate(import_input("\n", parse_card), start=1):
         matches = [number for number in numbers if number in winning]
         score += 2 ** (len(matches) - 1) if len(matches) > 0 else 0
         cards[i] = list(range(i + 1, i + 1 + len(matches)))

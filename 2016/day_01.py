@@ -3,7 +3,7 @@
 from aoc.helpers import *
 
 if __name__ == "__main__":
-    instructions = import_input(", ", example=False)
+    instructions = import_input(", ")
     direction = (0, 1)
     position = (0, 0)
     visited = []

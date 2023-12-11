@@ -52,7 +52,7 @@ def flash(octopi, flashed):
 
 
 if __name__ == "__main__":
-    octopi = np.array([[int(x) for x in line] for line in import_input("\n", example=False)])
+    octopi = np.array([[int(x) for x in line] for line in import_input("\n")])
     print("Initial state:")
     print_octopi(octopi)
 

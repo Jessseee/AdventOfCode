@@ -20,7 +20,7 @@ def get_neighbours(position):
 
 
 if __name__ == "__main__":
-    schematic = import_input("\n", example=False)
+    schematic = import_input("\n")
 
     # Find position/span of numbers and symbols
     numbers, symbols = [], {}

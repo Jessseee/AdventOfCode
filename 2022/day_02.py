@@ -20,7 +20,7 @@ def rock_paper_scissors(instructions, results):
 
 
 if __name__ == "__main__":
-    instructions = import_input("\n", lambda line: line.split(" "), example=False)
+    instructions = import_input("\n", lambda line: line.split(" "))
 
     results = {"A": {"X": 4, "Y": 8, "Z": 3}, "B": {"X": 1, "Y": 5, "Z": 9}, "C": {"X": 7, "Y": 2, "Z": 6}}
     print(

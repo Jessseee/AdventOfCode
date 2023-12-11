@@ -28,7 +28,7 @@ class Bot(Output):
 
 
 if __name__ == "__main__":
-    inputs = import_input("\n", example=False)
+    inputs = import_input("\n")
     bots = defaultdict(Bot)
     outputs = defaultdict(Output)
     for instruction in inputs:

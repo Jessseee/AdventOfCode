@@ -103,7 +103,7 @@ def calc_mag(number):
 if __name__ == "__main__":
     numbers = [
         [int(char) if char.isnumeric() else char for char in re.findall(r"(\[|]|,|[0-9]+)", line)]
-        for line in import_input("\n", example=False)
+        for line in import_input("\n")
     ]
 
     # Calculate the homework results by adding up all the given snailfish numbers

@@ -42,7 +42,7 @@ tags = {("(", ")"): (3, 1), ("[", "]"): (57, 2), ("{", "}"): (1197, 3), ("<", ">
 
 
 if __name__ == "__main__":
-    source = import_input("\n", example=False)
+    source = import_input("\n")
     error_scores = 0
     completion_scores = []
     for line in source:

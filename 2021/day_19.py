@@ -31,8 +31,7 @@ def basis_diff(base, to_compare):
 
 if __name__ == "__main__":
     scanners = [
-        [tuple(map(int, beacon.split(","))) for beacon in scanner.split("\n")[1:]]
-        for scanner in import_input("\n\n", example=True)
+        [tuple(map(int, beacon.split(","))) for beacon in scanner.split("\n")[1:]] for scanner in import_input("\n\n")
     ]
     for i, scanner in enumerate(scanners):
         print(f"--- scanner {i} ---", scanner)

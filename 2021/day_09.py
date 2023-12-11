@@ -53,7 +53,7 @@ def find_all_basins(heightmap, low_points):
 
 
 if __name__ == "__main__":
-    heightmap = np.array([[int(x) for x in y] for y in import_input("\n", example=False)])
+    heightmap = np.array([[int(x) for x in y] for y in import_input("\n")])
 
     print_heightmap(heightmap)
 

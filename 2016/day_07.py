@@ -28,7 +28,7 @@ def check_ssl(ip):
 
 
 if __name__ == "__main__":
-    inputs = import_input("\n", example=False)
+    inputs = import_input("\n")
     valid_tls = 0
     valid_ssl = 0
     for ip in inputs:

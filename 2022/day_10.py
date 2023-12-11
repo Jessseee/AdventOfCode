@@ -29,7 +29,7 @@ class AddX:
 
 
 if __name__ == "__main__":
-    instructions = import_input("\n", example=False)
+    instructions = import_input("\n")
     X = 1
     crt = []
     cycle = 1

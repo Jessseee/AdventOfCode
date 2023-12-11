@@ -10,7 +10,7 @@ def reg_or_int(value):
 
 
 if __name__ == "__main__":
-    instructions = import_input("\n", lambda x: x.split(" "), example=False)
+    instructions = import_input("\n", lambda x: x.split(" "))
     cursor = 0
     step = 0
     while cursor < len(instructions):

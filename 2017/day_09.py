@@ -58,6 +58,6 @@ class Stream:
 
 
 if __name__ == "__main__":
-    streams = import_input("\n", example=False)
+    streams = import_input("\n")
     for stream in streams:
         Stream(stream).read()
