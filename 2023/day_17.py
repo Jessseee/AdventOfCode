@@ -55,7 +55,7 @@ def find_path(blocks, start=(0, 0), min_turn=0, max_turn=3):
     while len(to_visit) > 0:
         current = to_visit.pop(0)
         if current[0] == target and current[-1] >= min_turn:
-            return reconstruct(start, connections, current)
+            return reconstruct_path(start, connections, current)
         for neighbour in neighbours(*current, max_x, max_y, min_turn, max_turn):
             tentative_g_score = g_score[current] + blocks[neighbour[0]]
             if tentative_g_score < g_score.get(neighbour, inf):
