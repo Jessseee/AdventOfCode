@@ -1,10 +1,16 @@
 import os
 import re
 import sys
-from typing import IO, Any, Callable
+from inspect import signature
+from typing import Any, Callable, Optional
+from functools import wraps
 
 
-def import_input(split: str = None, parser: Callable[[str], Any] = None, example: bool = False) -> list | IO:
+def import_input(
+        split: Optional[str] = None,
+        parser: Optional[Callable[[str], Any]] = None,
+        example: bool = False
+):
     """
     Import input or example data from text file.
 
@@ -14,7 +20,8 @@ def import_input(split: str = None, parser: Callable[[str], Any] = None, example
     :return: inputs from input file.
     """
     day = re.findall("[0-9]+", os.path.basename(sys.argv[0]))[0]
-    path = "input/example_input_day_" + day + ".txt" if example else "input/input_day_" + day + ".txt"
+    filename = "example_input_day_" + day + ".txt" if example else "input_day_" + day + ".txt"
+    path = os.path.join(os.path.dirname(sys.argv[0]), "input", filename)
     if not os.path.isfile(path):
         raise FileNotFoundError(f"Input file does not exist at {path}")
     inputs = open(path)
@@ -25,7 +32,25 @@ def import_input(split: str = None, parser: Callable[[str], Any] = None, example
             inputs = inputs.read().split(split)
     if parser is not None:
         inputs = list(map(parser, inputs))
-    return inputs
+    return inputs.read()
+
+
+def parse_input(parser: Callable[[str], Any]):
+    """
+    Decorator to parse 'inputs' argument of a function.
+
+    :param parser: The function to parse the inputs with.
+    """
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            mapping = signature(func).bind(*args, **kwargs)
+            inputs = mapping.arguments.get("inputs")
+            if inputs is not None:
+                mapping.arguments["inputs"] = parser(inputs)
+            return func(*mapping.args, **mapping.kwargs)
+        return wrapper
+    return decorator
 
 
 def replace_chr(i: int, char: str, string: str) -> str:
