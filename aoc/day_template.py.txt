@@ -1,0 +1,32 @@
+# Day <DAY> of Advent of Code <YEAR>
+# <PUZZLE TITLE>
+
+import unittest
+
+from aoc.helpers import import_input
+
+
+def part1(inputs):
+    pass
+
+
+def part2(inputs):
+    pass
+
+
+class Tests<YEAR><DAY>(unittest.TestCase):
+    def test_part1(self):
+        inputs = None
+        expected = None
+        self.assertEqual(expected, part1(inputs))
+
+    def test_part2(self):
+        inputs = None
+        expected = None
+        self.assertEqual(expected, part2(inputs))
+
+
+if __name__ == "__main__":
+    inputs = import_input()
+    print("part 1:", part1(inputs))
+    print("part 2:", part2(inputs))
