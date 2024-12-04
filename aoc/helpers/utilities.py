@@ -1,5 +1,8 @@
+import bisect
 import operator
+from collections import deque
 from functools import reduce
+from math import inf
 
 
 def map_tuples(*tuples: list[tuple[int, ...]], opp) -> tuple[int, ...]:
@@ -57,7 +60,7 @@ def rotate90(vector: tuple[int, int], clockwise: bool = True) -> tuple[int, int]
     return (vector[1], -vector[0]) if clockwise else (-vector[1], vector[0])
 
 
-def regular_directions(as_dict=False, names=("u", "r", "d", "l")) -> list[tuple[int, int]]:
+def regular_directions(as_dict=False, names=("u", "r", "d", "l")) -> list[tuple[int, int]] | dict:
     """
     Get the four directions in clockwise order.
 
@@ -112,10 +115,89 @@ def manhattan_distance(a: tuple[int, ...], b: tuple[int, ...] = None) -> int:
     return sum([abs(p - q) for p, q in zip(a, b)])
 
 
+def get_neighbours(x: int | float, y: int | float, directions: list[tuple[int, int]] = None) -> list[tuple[int, int]]:
+    """Find neighbouring positions in a 2D grid."""
+    directions = directions or regular_directions()
+    return [add_tuples((x, y), direction) for direction in directions]
+
+
+def get_neighbours_within_bound(
+    x: int | float, y: int | float, directions: list[tuple[int, int]] = None, min_x=0, max_x=inf, min_y=0, max_y=inf
+) -> list[tuple[int, int]]:
+    """Find neighbouring positions in a 2D grid, given bounding values of x and y."""
+    directions = directions or regular_directions()
+    neighbours = [add_tuples((x, y), direction) for direction in directions]
+    return [(x, y) for x, y in neighbours if min_x <= x < max_x and min_y <= y < max_y]
+
+
+def reconstruct_path(connections: dict[tuple[int, int]], current: tuple[int, int], target: tuple[int, int] = None):
+    """
+    Reconstruct a path from a directional graph.
+    """
+    shortest_path = [current]
+    while current in connections:
+        current = connections[current]
+        shortest_path.insert(0, current)
+        if target and current == target:
+            break
+    return shortest_path
+
+
+def a_star_search(
+    start: tuple[int, int],
+    target: tuple[int, int],
+    weights: list[list[int]],
+    distance=manhattan_distance,
+    neighbours=get_neighbours,
+) -> list[tuple[int, int]]:
+    """
+    Implementation of the A* search algorithm.
+
+    :param start: A starting node.
+    :param target: A target node.
+    :param weights: A 2D array of weights for the nodes.
+    :param distance: A function to estimates the cost of a path.
+    :param neighbours: A function to determine the neighbours of a node.
+    """
+    current = start
+    connections = {}
+    to_visit = {current}
+    g_score = {current: 0}
+    f_score = {current: weights[current]}
+
+    while len(to_visit) > 0:
+        d = {node: f_score[node] for node in to_visit}
+        current = min(d, key=d.get)
+        if current == target:
+            return reconstruct_path(connections, current)
+        to_visit.remove(current)
+        for neighbour in neighbours(*current):
+            tentative_g_score = g_score[current] + weights[neighbour]
+            if tentative_g_score < g_score.get(neighbour, inf):
+                connections[neighbour] = current
+                g_score[neighbour] = tentative_g_score
+                f_score[neighbour] = tentative_g_score + distance(neighbour, target)
+                if neighbour not in to_visit:
+                    bisect.insort(to_visit, neighbour, key=lambda n: f_score[n])
+
+
+def breadth_first_search(start, target, neighbours=get_neighbours):
+    to_visit = deque([start])
+    explored = set(start)
+    connections = {}
+    while len(to_visit):
+        current = to_visit.pop()
+        if current == target:
+            return reconstruct_path(connections, current)
+        for neighbour in neighbours(*current):
+            if neighbour not in explored:
+                explored.add(neighbour)
+                connections[neighbour] = current
+                to_visit.append(neighbour)
+
+
 class safe_list(list):
-    """
-    Subclass of build-in list with safe get() method.
-    """
+    """Subclass of build-in list with safe get() method."""
 
     def get(self, index: int, default=None):
         """Return the value for key if key is in the dictionary, else default."""
