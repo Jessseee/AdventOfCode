@@ -57,35 +57,5 @@ def parse_input(parser: Callable[[str], Any]):
     return decorator
 
 
-def replace_chr(i: int, char: str, string: str) -> str:
-    """
-    Replace a character in a string.
-
-    :param int i: Index of character to replace.
-    :param str char: Character(s) to place in string.
-    :param str string: String to replace character in.
-    :return: String with character replaced.
-    """
-    return string[:i] + char + string[i + 1 :]
-
-
-def replace_chrs(span: list[int, int], char: str, string: str) -> str:
-    """
-    Replace a span of characters in a string.
-
-    :param span: Start and end of span to replace.
-    :param char: Character(s) to place in string.
-    :param string: String to replace characters in.
-    :return: String with characters replaced.
-    """
-    return string[: span[0]] + char + string[span[1] :]
-
-
-def parse_integers(string: str) -> list[int]:
-    """
-    Parse all integers in a string.
-
-    :param string: The string to parse.
-    :return: A list of the parsed integers.
-    """
-    return list(map(int, re.findall(r"[+-]?\d+", string)))
+def integers_from_string(string):
+    return list(map(int, re.findall(r"-?\d+", string)))

@@ -1,3 +1,4 @@
+import html
 import os
 import re
 import webbrowser
@@ -11,7 +12,7 @@ import click
 import requests
 import yaml
 
-from .helpers import Color, c, Highlight
+from aoc.library.display import Color, c, Highlight
 
 christmas = [
     c("            .-----_", Color.RED),
@@ -62,8 +63,6 @@ def download_input(year: str, day: str, config: Config):
                 data = response.text
                 with open(f"{year}/input/input_day_{day:02d}.txt", "w+") as f:
                     f.write(data.rstrip("\n"))
-                with open(f"{year}/input/example_input_day_{day:02d}.txt", "w+") as f:
-                    f.write(" ")
             break
         except requests.ConnectTimeout:
             if error_count > config.MAX_RECONNECT_ATTEMPT:
@@ -95,7 +94,7 @@ def get_puzzle_title(year, day):
         url=f"https://adventofcode.com/{year}/day/{day}"
     ) as response:
         if response.ok and (match := re.search(r"-- Day \d+: (.*) --", response.text)):
-            return match.group(1)
+            return html.unescape(match.group(1))
 
 
 def init_day(year: str, day: str, config: Config):
