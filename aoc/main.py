@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from datetime import datetime, UTC
 from importlib.resources import as_file, files
 from os import PathLike
+from shutil import which
 from time import sleep
 
 import click
@@ -126,7 +127,8 @@ def init_day(year: str, day: str, config: Config):
                 .replace("<PUZZLE TITLE>", puzzle_title)
         with open(puzzle_file, "w") as file:
             file.write(data)
-    os.system(f"pycharm {puzzle_file}")
+    if which("pycharm") is not None:
+        os.system(f"pycharm {puzzle_file}")
     print(c(f"Let's get started on day {day} of Advent of Code {year}!", Color.GREEN))
 
 

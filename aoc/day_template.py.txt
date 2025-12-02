@@ -3,13 +3,19 @@
 
 import unittest
 
-from aoc.helpers import import_input
+from aoc.helpers import import_input, parse_input
 
 
+def parser(inputs):
+    return inputs
+
+
+@parse_input(parser)
 def part1(inputs):
     pass
 
 
+@parse_input(parser)
 def part2(inputs):
     pass
 
