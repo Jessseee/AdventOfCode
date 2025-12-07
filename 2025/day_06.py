@@ -35,15 +35,15 @@ def part2(inputs):
 
 
 class Tests202506(unittest.TestCase):
+    inputs = "123 328  51 64 \n 45 64  387 23 \n  6 98  215 314\n*   +   *   +  "
+
     def test_part1(self):
-        inputs = "123 328  51 64 \n 45 64  387 23 \n  6 98  215 314\n*   +   *   +  "
         expected = 4277556
-        self.assertEqual(expected, part1(inputs))
+        self.assertEqual(expected, part1(self.inputs))
 
     def test_part2(self):
-        inputs = "123 328  51 64 \n 45 64  387 23 \n  6 98  215 314\n*   +   *   +  "
         expected = 3263827
-        self.assertEqual(expected, part2(inputs))
+        self.assertEqual(expected, part2(self.inputs))
 
 
 if __name__ == "__main__":

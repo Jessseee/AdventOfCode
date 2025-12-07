@@ -49,37 +49,26 @@ def part2(inputs):
 
 
 class Tests202504(unittest.TestCase):
+    inputs = (
+        "..@@.@@@@.\n"
+        "@@@.@.@.@@\n"
+        "@@@@@.@.@@\n"
+        "@.@@@@..@.\n"
+        "@@.@@@@.@@\n"
+        ".@@@@@@@.@\n"
+        ".@.@.@.@@@\n"
+        "@.@@@.@@@@\n"
+        ".@@@@@@@@.\n"
+        "@.@.@@@.@."
+    )
+
     def test_part1(self):
-        inputs = (
-            "..@@.@@@@.\n"
-            "@@@.@.@.@@\n"
-            "@@@@@.@.@@\n"
-            "@.@@@@..@.\n"
-            "@@.@@@@.@@\n"
-            ".@@@@@@@.@\n"
-            ".@.@.@.@@@\n"
-            "@.@@@.@@@@\n"
-            ".@@@@@@@@.\n"
-            "@.@.@@@.@."
-        )
         expected = 13
-        self.assertEqual(expected, part1(inputs))
+        self.assertEqual(expected, part1(self.inputs))
 
     def test_part2(self):
-        inputs = (
-            "..@@.@@@@.\n"
-            "@@@.@.@.@@\n"
-            "@@@@@.@.@@\n"
-            "@.@@@@..@.\n"
-            "@@.@@@@.@@\n"
-            ".@@@@@@@.@\n"
-            ".@.@.@.@@@\n"
-            "@.@@@.@@@@\n"
-            ".@@@@@@@@.\n"
-            "@.@.@@@.@."
-        )
         expected = 43
-        self.assertEqual(expected, part2(inputs))
+        self.assertEqual(expected, part2(self.inputs))
 
 
 if __name__ == "__main__":

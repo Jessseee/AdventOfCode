@@ -32,15 +32,15 @@ def part2(inputs):
 
 
 class Tests202501(unittest.TestCase):
+    inputs = "L68\nL30\nR48\nL5\nR60\nL55\nL1\nL99\nR14\nL82"
+
     def test_part1(self):
-        inputs = "L68\nL30\nR48\nL5\nR60\nL55\nL1\nL99\nR14\nL82"
         expected = 3
-        self.assertEqual(expected, part1(inputs))
+        self.assertEqual(expected, part1(self.inputs))
 
     def test_part2(self):
-        inputs = "L68\nL30\nR48\nL5\nR60\nL55\nL1\nL99\nR14\nL82"
         expected = 6
-        self.assertEqual(expected, part2(inputs))
+        self.assertEqual(expected, part2(self.inputs))
 
 
 if __name__ == "__main__":

@@ -35,15 +35,16 @@ def part2(inputs):
 
 
 class Tests202503(unittest.TestCase):
+    inputs = "98765432111111\n811111111111119\n234234234234278\n818181911112111"
+
     def test_part1(self):
-        inputs = "98765432111111\n811111111111119\n234234234234278\n818181911112111"
         expected = 357
-        self.assertEqual(expected, part1(inputs))
+        self.assertEqual(expected, part1(self.inputs))
 
     def test_part2(self):
-        inputs = "98765432111111\n811111111111119\n234234234234278\n818181911112111"
+
         expected = 3121910778619
-        self.assertEqual(expected, part2(inputs))
+        self.assertEqual(expected, part2(self.inputs))
 
 
 if __name__ == "__main__":
