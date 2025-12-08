@@ -55,7 +55,7 @@ def manhattan_distance(
         a: tuple[int, ...], b: tuple[int, ...] = None
 ) -> int:
     """
-    The manhattan (taxi-driver) distance between two points.
+    The Manhattan (taxi-driver) distance between two points.
 
     :param a: The first point.
     :param b: The second point, defaults to the origin.
@@ -65,6 +65,20 @@ def manhattan_distance(
     if len(a) != len(b):
         raise ValueError("To calculate distance 'a' and 'b' must be the same length.")
     return sum([abs(p - q) for p, q in zip(a, b)])
+
+
+def euclidian_distance(
+        a: tuple[int, ...], b: tuple[int, ...] = None
+) -> int:
+    """
+    The Euclidian (straight-line) distance between two points.
+
+    :param a: The first point.
+    :param b: The second point, defaults to the origin.
+    :returns: The manhattan distance between the two points.
+    """
+    b = b or tuple(0 for _ in range(len(a)))
+    return sum([(p - q)**2 for p, q in zip(a, b)])**0.5
 
 
 def get_neighbours(
