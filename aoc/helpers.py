@@ -1,6 +1,7 @@
 import os
 import re
 import sys
+import timeit
 from inspect import signature
 from typing import Any, Callable, Optional
 from functools import wraps
@@ -30,8 +31,10 @@ def import_input(
             inputs = [char for char in inputs]
         else:
             inputs = inputs.split(split)
-    if parser is not None:
+    if split is not None and parser is not None:
         inputs = list(map(parser, inputs))
+    elif parser:
+        inputs = parser(inputs)
     return inputs
 
 
@@ -53,6 +56,35 @@ def parse_input(parser: Callable[[str], Any]):
                 input_var = mapping.arguments.get(first_argument)
                 mapping.arguments[first_argument] = parser(input_var)
             return func(*mapping.args, **mapping.kwargs)
+        return wrapper
+    return decorator
+
+
+def format_timeit(t):
+    """Format a time duration (in seconds, float) to a human-friendly string"""
+    if t < 1e-6:
+        return f"{t * 1e9:.3f}ns"
+    if t < 1e-3:
+        return f"{t * 1e6:.3f}µs"
+    if t < 1:
+        return f"{t * 1000:.3f}ms"
+    if t < 60:
+        return f"{t:.3f}s"
+    return f"{int(t // 60)}:{t % 60:06.3f}"
+
+
+def timer(show_result=True):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            start = timeit.default_timer()
+            result = func(*args, **kwargs)
+            end = timeit.default_timer()
+            if show_result:
+                print(f"[{format_timeit(end - start)}]\t{func.__name__}: {result}")
+            else:
+                print(f"[{format_timeit(end - start)}]\t{func.__name__}")
+            return result
         return wrapper
     return decorator
 

@@ -6,7 +6,7 @@ import unittest
 from itertools import groupby
 from math import prod
 
-from aoc.helpers import import_input, parse_input
+from aoc.helpers import import_input, timer
 
 OPERATOR = {"+": sum, "*": prod}
 
@@ -16,7 +16,7 @@ def parser(inputs):
     return lines[:-1], lines[-1]
 
 
-@parse_input(parser)
+@timer()
 def part1(inputs):
     numbers, operators = inputs
     problems = list(zip(*[map(int, re.findall(r"\d+", line)) for line in numbers]))
@@ -24,7 +24,7 @@ def part1(inputs):
     return sum(operator(numbers) for numbers, operator in zip(problems, operators))
 
 
-@parse_input(parser)
+@timer()
 def part2(inputs):
     numbers, operators = inputs
     problems_rearranged = map(str.strip, map(''.join, zip(*numbers)))
@@ -47,6 +47,6 @@ class Tests202506(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    inputs = import_input()
-    print("part 1:", part1(inputs))
-    print("part 2:", part2(inputs))
+    inputs = import_input(parser=parser)
+    part1(inputs)
+    part2(inputs)

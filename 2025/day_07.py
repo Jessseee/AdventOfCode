@@ -7,7 +7,7 @@ from functools import cache
 
 import numpy as np
 
-from aoc.helpers import import_input, parse_input
+from aoc.helpers import import_input, timer
 
 
 def parser(inputs):
@@ -16,7 +16,7 @@ def parser(inputs):
     return grid, start
 
 
-@parse_input(parser)
+@timer()
 def part1(inputs):
     grid, start = inputs
 
@@ -40,7 +40,7 @@ def part1(inputs):
     return splitters
 
 
-@parse_input(parser)
+@timer()
 def part2(inputs):
     grid, start = inputs
 
@@ -86,6 +86,6 @@ class Tests202507(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    inputs = import_input()
-    print("part 1:", part1(inputs))
-    print("part 2:", part2(inputs))
+    inputs = import_input(parser=parser)
+    part1(inputs)
+    part2(inputs)

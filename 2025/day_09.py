@@ -4,7 +4,7 @@
 import unittest
 from itertools import combinations
 
-from aoc.helpers import import_input, parse_input, integers_from_string
+from aoc.helpers import import_input, integers_from_string, timer
 
 
 def parser(inputs):
@@ -16,12 +16,12 @@ def rect_area(a, b):
     return (abs(x1 - x2) + 1) * (abs(y1 - y2) + 1)
 
 
-@parse_input(parser)
+@timer()
 def part1(inputs):
     return max(rect_area(a, b) for a, b in combinations(inputs, 2))
 
 
-@parse_input(parser)
+@timer()
 def part2(inputs):
     edges = []
     for i in range(len(inputs)):
@@ -58,6 +58,6 @@ class Tests202509(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    inputs = import_input()
-    print("part 1:", part1(inputs))
-    print("part 2:", part2(inputs))
+    inputs = import_input(parser=parser)
+    part1(inputs)
+    part2(inputs)

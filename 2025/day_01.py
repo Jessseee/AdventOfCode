@@ -3,14 +3,14 @@
 
 import unittest
 
-from aoc.helpers import import_input, parse_input
+from aoc.helpers import import_input, timer
 
 
-def parse(inputs):
+def parser(inputs):
     return [(input[0], int(input[1:])) for input in inputs.split("\n")]
 
 
-@parse_input(parse)
+@timer()
 def part1(inputs):
     pos = 50
     password = 0
@@ -20,7 +20,7 @@ def part1(inputs):
     return password
 
 
-@parse_input(parse)
+@timer()
 def part2(inputs):
     pos = 50
     password = 0
@@ -44,6 +44,6 @@ class Tests202501(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    inputs = import_input()
-    print("part 1:", part1(inputs))
-    print("part 2:", part2(inputs))
+    inputs = import_input(parser=parser)
+    part1(inputs)
+    part2(inputs)

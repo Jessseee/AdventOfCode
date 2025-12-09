@@ -2,11 +2,10 @@
 # Printing Department
 
 import unittest
-from copy import deepcopy
 
 import numpy as np
 
-from aoc.helpers import import_input, parse_input
+from aoc.helpers import import_input, timer
 from aoc.library.grid import get_neighbours_within_bound, cardinal_directions
 
 
@@ -14,7 +13,7 @@ def parser(inputs):
     return np.array(list(map(list, inputs.split("\n"))))
 
 
-@parse_input(parser)
+@timer()
 def part1(inputs: np.ndarray):
     accessible = 0
     max_x, max_y = inputs.shape
@@ -26,7 +25,7 @@ def part1(inputs: np.ndarray):
     return accessible
 
 
-@parse_input(parser)
+@timer()
 def part2(inputs):
     removed = 0
     to_remove = set()
@@ -72,6 +71,6 @@ class Tests202504(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    inputs = import_input()
-    print("part 1:", part1(inputs))
-    print("part 2:", part2(inputs))
+    inputs = import_input(parser=parser)
+    part1(inputs)
+    part2(inputs)

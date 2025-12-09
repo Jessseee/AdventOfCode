@@ -3,14 +3,14 @@
 
 import unittest
 
-from aoc.helpers import import_input, parse_input
+from aoc.helpers import import_input, timer
 
 
 def parser(inputs):
     return [list(map(int, line)) for line in inputs.split("\n")]
 
 
-@parse_input(parser)
+@timer()
 def part1(inputs):
     total = 0
     for bank in inputs:
@@ -20,7 +20,7 @@ def part1(inputs):
     return total
 
 
-@parse_input(parser)
+@timer()
 def part2(inputs):
     total = 0
     for bank in inputs:
@@ -48,6 +48,6 @@ class Tests202503(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    inputs = import_input()
-    print("part 1:", part1(inputs))
-    print("part 2:", part2(inputs))
+    inputs = import_input(parser=parser)
+    part1(inputs)
+    part2(inputs)

@@ -4,14 +4,14 @@
 import re
 import unittest
 
-from aoc.helpers import import_input, parse_input
+from aoc.helpers import import_input, timer
 
 
-def parse(inputs):
+def parser(inputs):
     return [tuple(map(int, re.findall(r"\d+", input))) for input in inputs.split(",")]
 
 
-@parse_input(parse)
+@timer()
 def part1(inputs):
     total = 0
     for start, end in inputs:
@@ -22,16 +22,13 @@ def part1(inputs):
     return total
 
 
-@parse_input(parse)
+@timer()
 def part2(inputs):
     total = 0
     for start, end in inputs:
         for i in range(start, end + 1):
-            id = str(i)
-            for j in range(1, len(id)//2 + 1):
-                if re.match(f"({id[:j]})*$", id):
-                    total += i
-                    break
+            if re.fullmatch(r"(.+)\1+", str(i)):
+                total += i
     return total
 
 
@@ -51,6 +48,6 @@ class Tests202502(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    inputs = import_input()
-    print("part 1:", part1(inputs))
-    print("part 2:", part2(inputs))
+    inputs = import_input(parser=parser)
+    part1(inputs)
+    part2(inputs)

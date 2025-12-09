@@ -7,10 +7,11 @@ from collections import Counter
 from itertools import combinations, islice
 from uuid import uuid4 as uuid
 
-from aoc.helpers import import_input, parse_input, integers_from_string
+from aoc.helpers import import_input, integers_from_string, timer
 from aoc.library.grid import euclidian_distance
 
 
+@timer(show_result=False)
 def parser(inputs):
     junctions = {tuple(integers_from_string(line)) for line in inputs.split("\n")}
     junction_sets = list(combinations(junctions, 2))
@@ -43,14 +44,14 @@ def connect_junctions(by_distance):
         yield circuits, junc_a, junc_b
 
 
-@parse_input(parser)
+@timer()
 def part1(inputs, n=10):
     _, by_distance = inputs
     circuits, *_ = next(islice(connect_junctions(by_distance), n-1, None))
     return math.prod([x[1] for x in Counter(circuits.values()).most_common(3)])
 
 
-@parse_input(parser)
+@timer()
 def part2(inputs):
     junctions, by_distance = inputs
     for circuits, junc_a, junc_b in connect_junctions(by_distance):
@@ -93,6 +94,6 @@ class Tests202508(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    inputs = import_input()
-    print("part 1:", part1(inputs, 1000))
-    print("part 2:", part2(inputs))
+    inputs = import_input(parser=parser)
+    part1(inputs, 1000)
+    part2(inputs)
