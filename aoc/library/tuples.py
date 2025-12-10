@@ -24,6 +24,16 @@ def add(*tuples: list[tuple[int, ...]]) -> tuple[int, ...]:
     return map(*tuples, opp=operator.add)
 
 
+def xor(*tuples: list[tuple[int|bool, ...]]) -> tuple[bool, ...]:
+    """
+    XOR together all values of a series of tuples.
+
+    :param tuples: The tuples of which to sum the values.
+    :returns: A tuple of the subtracted values.
+    """
+    return map(*tuples, opp=operator.xor)
+
+
 def sub(*tuples: list[tuple[int, ...]]) -> tuple[int, ...]:
     """
     Subtract all values of a series of tuples.
