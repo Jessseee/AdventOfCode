@@ -43,21 +43,20 @@ def parser(inputs):
 def part1(inputs):
     total = 0
     for target, buttons, _ in inputs:
-        init_state = (False,) * len(target)
-        to_visit = deque([(1, init_state)])
+        to_visit = deque([(1, (False,) * len(target), set(range(len(buttons))))])
         explored = set()
         sequence_lengths = []
         while len(to_visit) > 0:
-            presses, state = to_visit.pop()
-            for button in buttons:
-                next_state = xor(state, button)
+            presses, state, to_press = to_visit.pop()
+            for i in to_press:
+                next_state = xor(state, buttons[i])
                 if next_state == target:
                     sequence_lengths.append(presses)
                     break
                 if next_state in explored:
                     continue
                 explored.add(next_state)
-                to_visit.appendleft((presses + 1, next_state))
+                to_visit.appendleft((presses + 1, next_state, to_press - {i}))
         total += min(sequence_lengths)
     return total
 

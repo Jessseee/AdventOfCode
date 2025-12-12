@@ -4,7 +4,7 @@
 import unittest
 from functools import cache
 
-from aoc.helpers import import_input, parse_input
+from aoc.helpers import import_input, timer
 
 
 def parser(inputs):
@@ -15,34 +15,33 @@ def parser(inputs):
     return result
 
 
-def build_path_counter(inputs):
+@timer()
+def part1(inputs):
     @cache
-    def iterator(current, target):
+    def count_paths(current, target):
         if current == target:
             return 1
-        return sum(iterator(neighbour, target) for neighbour in inputs.get(current, []))
-    return iterator
+        return sum(count_paths(neighbour, target) for neighbour in inputs.get(current, []))
 
-
-@parse_input(parser)
-def part1(inputs):
-    count_paths = build_path_counter(inputs)
     return count_paths("you", "out")
 
 
-@parse_input(parser)
+@timer()
 def part2(inputs):
-    count_paths = build_path_counter(inputs)
-    svr_fft = count_paths("svr", "fft")
-    fft_dac = count_paths("fft", "dac")
-    dac_out = count_paths("dac", "out")
+    @cache
+    def count_paths(current, target, flag=0):
+        if current == "fft" or current == "dac":
+            flag += 1
+        if current == target:
+            return int(flag == 2)
+        return sum(count_paths(neighbour, target, flag) for neighbour in inputs.get(current, []))
 
-    return svr_fft * fft_dac * dac_out
+    return count_paths("svr", "out")
 
 
 class Tests202511(unittest.TestCase):
     def test_part1(self):
-        inputs = (
+        inputs = parser(
             "aaa: you hhh\n"
             "you: bbb ccc\n"
             "bbb: ddd eee\n"
@@ -58,7 +57,7 @@ class Tests202511(unittest.TestCase):
         self.assertEqual(expected, part1(inputs))
 
     def test_part2(self):
-        inputs = (
+        inputs = parser(
             "svr: aaa bbb\n"
             "aaa: fft\n"
             "fft: ccc\n"
@@ -78,6 +77,6 @@ class Tests202511(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    inputs = import_input()
-    print("part 1:", part1(inputs))
-    print("part 2:", part2(inputs))
+    inputs = import_input(parser=parser)
+    part1(inputs)
+    part2(inputs)
